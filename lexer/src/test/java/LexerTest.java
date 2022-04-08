@@ -1,4 +1,5 @@
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 import org.austral.ingsis.printscript.common.LexicalRange;
@@ -7,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 public class LexerTest {
 
-  Lexer lexer = new DefaultLexer();
+  private Lexer lexer = new DefaultLexer();
 
   @Test
   public void Test001_getKeywordTokens() {

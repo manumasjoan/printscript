@@ -7,6 +7,8 @@ plugins {
     java
 
     id("com.github.sherter.google-java-format")
+
+    checkstyle
 }
 
 repositories {
@@ -49,6 +51,10 @@ dependencies {
 
 googleJavaFormat {
     toolVersion = "1.12.0" }
+
+checkstyle {
+    toolVersion = "8.29"
+}
 
 tasks.test {
     // Use JUnit Platform for unit tests.

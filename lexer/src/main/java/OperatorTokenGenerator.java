@@ -1,11 +1,13 @@
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Getter;
 import org.austral.ingsis.printscript.common.LexicalRange;
 import org.austral.ingsis.printscript.common.Token;
 
+@Getter
 public class OperatorTokenGenerator implements TokenGenerator {
 
-  List<String> operators;
+  private List<String> operators;
 
   public OperatorTokenGenerator() {
     operators = new ArrayList<>();

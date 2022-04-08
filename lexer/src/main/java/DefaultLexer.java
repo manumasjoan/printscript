@@ -1,10 +1,12 @@
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Getter;
 import org.austral.ingsis.printscript.common.Token;
 
+@Getter
 public class DefaultLexer implements Lexer {
 
-  List<TokenGenerator> tokenGenerators;
+  private List<TokenGenerator> tokenGenerators;
 
   public DefaultLexer() {
     this.tokenGenerators = new ArrayList<>();
