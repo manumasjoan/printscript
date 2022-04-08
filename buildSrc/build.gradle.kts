@@ -10,4 +10,11 @@ plugins {
 repositories {
     // Use the plugin portal to apply community plugins in convention plugins.
     gradlePluginPortal()
+    mavenCentral()
+}
+
+
+dependencies {
+    implementation("com.github.sherter.google-java-format:com.github.sherter.google-java-format.gradle.plugin:0.9")
+
 }

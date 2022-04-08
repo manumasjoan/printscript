@@ -5,6 +5,8 @@
 plugins {
     // Apply the java Plugin to add support for Java.
     java
+
+    id("com.github.sherter.google-java-format")
 }
 
 repositories {
@@ -41,7 +43,12 @@ dependencies {
     annotationProcessor ("org.projectlombok:lombok:1.18.22")
     testCompileOnly ("org.projectlombok:lombok:1.18.22")
     testAnnotationProcessor ("org.projectlombok:lombok:1.18.22")
+
+
 }
+
+googleJavaFormat {
+    toolVersion = "1.12.0" }
 
 tasks.test {
     // Use JUnit Platform for unit tests.

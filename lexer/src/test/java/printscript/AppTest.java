@@ -3,12 +3,13 @@
  */
 package printscript;
 
-import org.junit.Test;
 import static org.junit.Assert.*;
 
-public class AppTest {
-    @Test public void appHasAGreeting() {
-        assertTrue(true);
+import org.junit.Test;
 
-    }
+public class AppTest {
+  @Test
+  public void appHasAGreeting() {
+    assertTrue(true);
+  }
 }

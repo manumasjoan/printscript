@@ -1,4 +1,4 @@
 plugins {
-    id("printscript.java-application-conventions")
+    id("printscript.java-library-conventions")
 }
 
