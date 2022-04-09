@@ -18,14 +18,4 @@ public class TokenGeneratorResult {
   public boolean tokenWasGenerated() {
     return token != null;
   }
-
-  @Override
-  public String toString() {
-    return "TokenGeneratorResult{"
-        + "token="
-        + token
-        + ", lexicalRangeState="
-        + lexicalRangeState
-        + '}';
-  }
 }

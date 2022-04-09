@@ -9,6 +9,9 @@ plugins {
     id("com.github.sherter.google-java-format")
 
     checkstyle
+
+    jacoco
+
 }
 
 repositories {
@@ -56,7 +59,35 @@ checkstyle {
     toolVersion = "8.29"
 }
 
+jacoco{
+    toolVersion = "0.8.7"
+}
+
 tasks.test {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()
+    finalizedBy(tasks.jacocoTestReport) // report is always generated after tests run
 }
+
+tasks.jacocoTestReport {
+    dependsOn(tasks.test) // tests are required to run before generating the report
+
+    reports {
+        xml.required.set(false)
+        csv.required.set(false)
+        html.required.set(true)
+    }
+}
+
+
+tasks.build{
+    dependsOn(tasks.checkstyleMain)
+}
+
+tasks.checkstyleMain{
+    dependsOn(tasks.googleJavaFormat)
+}
+
+
+
+

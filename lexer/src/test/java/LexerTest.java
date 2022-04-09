@@ -76,14 +76,15 @@ public class LexerTest {
 
   @Test
   public void Test005_getMixedTokens() {
-    List<Token> actual = lexer.getTokens("let a = 5");
+    List<Token> actual = lexer.getTokens("let a = 5;");
 
     List<Token> expected =
         List.of(
             new Token(DefaultTokenTypes.KEYWORD, 0, 2, new LexicalRange(0, 0, 2, 0)),
             new Token(DefaultTokenTypes.IDENTIFIER, 4, 4, new LexicalRange(4, 0, 4, 0)),
             new Token(DefaultTokenTypes.OPERATOR, 6, 6, new LexicalRange(6, 0, 6, 0)),
-            new Token(DefaultTokenTypes.LITERAL, 8, 8, new LexicalRange(8, 0, 8, 0)));
+            new Token(DefaultTokenTypes.LITERAL, 8, 8, new LexicalRange(8, 0, 8, 0)),
+            new Token(DefaultTokenTypes.SEPARATOR, 9, 9, new LexicalRange(9, 0, 9, 0)));
 
     assertEquals(expected.size(), actual.size());
     assertTrue(actual.containsAll(expected));

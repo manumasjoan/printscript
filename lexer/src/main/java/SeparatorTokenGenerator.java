@@ -16,7 +16,9 @@ public class SeparatorTokenGenerator implements TokenGenerator {
 
   private LexicalRangeState updateState(LexicalRangeState lexicalRangeState) {
     return lexicalRangeState.updateState(
-        lexicalRangeState.getIndex() + 1, lexicalRangeState.getLine() + 1, 0);
+        lexicalRangeState.getIndex() + 1,
+        lexicalRangeState.getLine() + 1,
+        lexicalRangeState.getColumn() + 1);
   }
 
   @NotNull

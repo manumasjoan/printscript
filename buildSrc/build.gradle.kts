@@ -18,3 +18,4 @@ dependencies {
     implementation("com.github.sherter.google-java-format:com.github.sherter.google-java-format.gradle.plugin:0.9")
 
 }
+
