@@ -9,6 +9,7 @@ public enum DefaultTokenTypes implements TokenType {
   LITERAL("LITERAL"),
   SEPARATOR("SEPARATOR"),
   IDENTIFIER("IDENTIFIER"),
+  ASSIGN("ASSIGN"),
   SKIP_LINE("SKIP_LINE"),
   SPACE("SPACE");
 

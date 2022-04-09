@@ -3,6 +3,7 @@ import java.util.List;
 import lombok.Getter;
 import org.austral.ingsis.printscript.common.LexicalRange;
 import org.austral.ingsis.printscript.common.Token;
+import org.jetbrains.annotations.NotNull;
 
 @Getter
 public class OperatorTokenGenerator implements TokenGenerator {
@@ -15,29 +16,37 @@ public class OperatorTokenGenerator implements TokenGenerator {
     operators.add("-");
     operators.add("*");
     operators.add("/");
-    operators.add("=");
   }
 
   @Override
   public TokenGeneratorResult read(LexicalRangeState lexicalRangeState, String input) {
     if (!isOperator(lexicalRangeState, input)) return new TokenGeneratorResult(lexicalRangeState);
 
-    int index = lexicalRangeState.getIndex();
-    Token token =
-        new Token(
-            DefaultTokenTypes.OPERATOR,
-            index,
-            index,
-            new LexicalRange(
-                lexicalRangeState.getColumn(),
-                lexicalRangeState.getLine(),
-                lexicalRangeState.getColumn(),
-                lexicalRangeState.getLine()));
-    LexicalRangeState newState =
-        lexicalRangeState.updateState(
-            index + 1, lexicalRangeState.getLine(), lexicalRangeState.getColumn() + 1);
-    // return token;
+    Token token = createToken(lexicalRangeState);
+    LexicalRangeState newState = updateState(lexicalRangeState);
+
     return new TokenGeneratorResult(token, newState);
+  }
+
+  private LexicalRangeState updateState(LexicalRangeState lexicalRangeState) {
+    return lexicalRangeState.updateState(
+        lexicalRangeState.getIndex() + 1,
+        lexicalRangeState.getLine(),
+        lexicalRangeState.getColumn() + 1);
+  }
+
+  @NotNull
+  private Token createToken(LexicalRangeState lexicalRangeState) {
+    int index = lexicalRangeState.getIndex();
+    return new Token(
+        DefaultTokenTypes.OPERATOR,
+        index,
+        index,
+        new LexicalRange(
+            lexicalRangeState.getColumn(),
+            lexicalRangeState.getLine(),
+            lexicalRangeState.getColumn(),
+            lexicalRangeState.getLine()));
   }
 
   private String getOperator(LexicalRangeState lexicalRangeState, String input) {
@@ -49,6 +58,7 @@ public class OperatorTokenGenerator implements TokenGenerator {
   }
 
   private boolean isOperator(LexicalRangeState lexicalRangeState, String input) {
-    return getOperator(lexicalRangeState, input) != null;
+    String nextChar = String.valueOf(input.charAt(lexicalRangeState.getIndex()));
+    return operators.contains(nextChar);
   }
 }

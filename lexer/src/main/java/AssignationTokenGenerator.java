@@ -4,21 +4,19 @@ import org.austral.ingsis.printscript.common.LexicalRange;
 import org.austral.ingsis.printscript.common.Token;
 import org.jetbrains.annotations.NotNull;
 
-public class SeparatorTokenGenerator implements TokenGenerator {
+public class AssignationTokenGenerator implements TokenGenerator {
 
-  private List<String> separators;
+  private List<String> assignations;
 
-  public SeparatorTokenGenerator() {
-    separators = new ArrayList<>();
-    separators.add(";");
-    separators.add("(");
-    separators.add(")");
-    separators.add(":");
+  public AssignationTokenGenerator() {
+    assignations = new ArrayList<>();
+    assignations.add("=");
   }
 
   @Override
   public TokenGeneratorResult read(LexicalRangeState lexicalRangeState, String input) {
-    if (!isSeparator(lexicalRangeState, input)) return new TokenGeneratorResult(lexicalRangeState);
+    if (!isAssignation(lexicalRangeState, input))
+      return new TokenGeneratorResult(lexicalRangeState);
 
     Token token = createToken(lexicalRangeState);
     LexicalRangeState newState = updateState(lexicalRangeState);
@@ -38,7 +36,7 @@ public class SeparatorTokenGenerator implements TokenGenerator {
     int index = lexicalRangeState.getIndex();
     Token token =
         new Token(
-            DefaultTokenTypes.SEPARATOR,
+            DefaultTokenTypes.ASSIGN,
             index,
             index,
             new LexicalRange(
@@ -49,8 +47,8 @@ public class SeparatorTokenGenerator implements TokenGenerator {
     return token;
   }
 
-  private boolean isSeparator(LexicalRangeState lexicalRangeState, String input) {
+  private boolean isAssignation(LexicalRangeState lexicalRangeState, String input) {
     String nextChar = String.valueOf(input.charAt(lexicalRangeState.getIndex()));
-    return separators.contains(nextChar);
+    return assignations.contains(nextChar);
   }
 }

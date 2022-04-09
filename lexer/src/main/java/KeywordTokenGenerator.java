@@ -18,7 +18,6 @@ public class KeywordTokenGenerator implements TokenGenerator {
 
   @Override
   public TokenGeneratorResult read(LexicalRangeState lexicalRangeState, String input) {
-    // if (!isKeyword(lexicalRangeState, input)) return null;
     if (!isKeyword(lexicalRangeState, input)) return new TokenGeneratorResult(lexicalRangeState);
 
     int index = lexicalRangeState.getIndex();

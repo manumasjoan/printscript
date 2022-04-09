@@ -24,7 +24,6 @@ public class IdentifierTokenGenerator implements TokenGenerator {
             index + identifier.length(),
             lexicalRangeState.getLine(),
             lexicalRangeState.getColumn() + identifier.length());
-    // return token;
 
     return new TokenGeneratorResult(token, newState);
   }

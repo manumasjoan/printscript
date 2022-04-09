@@ -16,6 +16,7 @@ public class DefaultLexer implements Lexer {
     tokenGenerators.add(new SkipLineTokenGenerator());
     tokenGenerators.add(new KeywordTokenGenerator());
     tokenGenerators.add(new OperatorTokenGenerator());
+    tokenGenerators.add(new AssignationTokenGenerator());
     tokenGenerators.add(new IdentifierTokenGenerator());
     tokenGenerators.add(new SeparatorTokenGenerator());
   }
