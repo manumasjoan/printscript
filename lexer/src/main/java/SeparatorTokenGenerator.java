@@ -50,7 +50,7 @@ public class SeparatorTokenGenerator implements TokenGenerator {
   }
 
   private boolean isSeparator(LexicalRangeState lexicalRangeState, String input) {
-    String nextChar = String.valueOf(input.charAt(lexicalRangeState.getIndex()));
-    return separators.contains(nextChar);
+    String followingChar = String.valueOf(input.charAt(lexicalRangeState.getIndex()));
+    return separators.contains(followingChar);
   }
 }
