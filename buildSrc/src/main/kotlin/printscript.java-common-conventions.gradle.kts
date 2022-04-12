@@ -56,7 +56,8 @@ googleJavaFormat {
     toolVersion = "1.12.0" }
 
 checkstyle {
-    toolVersion = "8.29"
+    toolVersion = "9.3"
+    configFile =file("${rootDir}/config/checkstyle/checkstyle.xml")
 }
 
 jacoco{
