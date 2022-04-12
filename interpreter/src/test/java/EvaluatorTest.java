@@ -1,8 +1,5 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import ast.expression.Expression;
-import ast.expression.Operator;
-import ast.expression.Variable;
 import ast.node.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,24 +11,23 @@ public class EvaluatorTest {
 
   @Test
   public void test001_GivenTwoStringsWithAddOperandShouldReturnConcatenatedString()
-      throws NodeException {
+      throws Exception {
     Expression expression =
-        new Expression(new Variable("\"Hello \""), Operator.SUM, new Variable("\"World\""));
+        new Expression(new Variable("\"Hello \""), Operator.ADD, new Variable("\"World\""));
     expression.accept(evaluator);
     assertEquals("\"Hello World\"", evaluator.getOutput());
   }
 
   @Test
-  public void test002_GivenTwoNumbersWithAddOperatorShouldReturnAddedNumbers()
-      throws NodeException {
-    Expression expression = new Expression(new Variable("3"), Operator.SUM, new Variable("7"));
+  public void test002_GivenTwoNumbersWithAddOperatorShouldReturnAddedNumbers() throws Exception {
+    Expression expression = new Expression(new Variable("3"), Operator.ADD, new Variable("7"));
     expression.accept(evaluator);
     assertEquals("10.0", evaluator.getOutput());
   }
 
   @Test
   public void test003_GivenTwoNumbersWithSubtractOperatorShouldReturnSubtractedNumbers()
-      throws NodeException {
+      throws Exception {
     Expression expression = new Expression(new Variable("8"), Operator.SUB, new Variable("7"));
     expression.accept(evaluator);
     assertEquals("1.0", evaluator.getOutput());
@@ -39,7 +35,7 @@ public class EvaluatorTest {
 
   @Test
   public void test004_GivenTwoNumbersWithMultiplicationOperatorShouldReturnMultipliedNumbers()
-      throws NodeException {
+      throws Exception {
     Expression expression = new Expression(new Variable("8"), Operator.MUL, new Variable("2"));
     expression.accept(evaluator);
     assertEquals("16.0", evaluator.getOutput());
@@ -47,7 +43,7 @@ public class EvaluatorTest {
 
   @Test
   public void test005_GivenTwoNumbersWithDivitionOperatorShouldReturnDividedNumbers()
-      throws NodeException {
+      throws Exception {
     Expression expression = new Expression(new Variable("8"), Operator.DIV, new Variable("2"));
     expression.accept(evaluator);
     assertEquals("4.0", evaluator.getOutput());
@@ -55,27 +51,27 @@ public class EvaluatorTest {
 
   @Test
   public void test005_GivenANumberAndAStringWithAddingOperatorShouldReturnConcatenatedStrings()
-      throws NodeException {
+      throws Exception {
     Expression expression =
-        new Expression(new Variable("\"Hello \""), Operator.SUM, new Variable("123"));
+        new Expression(new Variable("\"Hello \""), Operator.ADD, new Variable("123"));
     expression.accept(evaluator);
     assertEquals("\"Hello 123\"", evaluator.getOutput());
   }
 
   @Test
   public void test006_GivenTwoAlreadyAssignedVariableShouldReplaceWithValueBeforeOperating()
-      throws NodeException {
+      throws Exception {
     Map<String, String> variables = new HashMap<>();
     variables.put("a", "5");
     variables.put("b", "6");
     Evaluator visitor = new Evaluator(variables);
-    Expression expression = new Expression(new Variable("a"), Operator.SUM, new Variable("b"));
+    Expression expression = new Expression(new Variable("a"), Operator.ADD, new Variable("b"));
     expression.accept(visitor);
     assertEquals("11.0", visitor.getOutput());
   }
 
   @Test
-  public void test007_GivenAnAlreadyAssignedVariableShouldReplaceWithValue() throws NodeException {
+  public void test007_GivenAnAlreadyAssignedVariableShouldReplaceWithValue() throws Exception {
     Map<String, String> variables = new HashMap<>();
     variables.put("a", "5");
     Evaluator visitor = new Evaluator(variables);
@@ -85,14 +81,14 @@ public class EvaluatorTest {
   }
 
   @Test
-  public void test008_GivenANodeGroupResultShouldPrintContent() throws NodeException {
+  public void test008_GivenANodeGroupResultShouldPrintContent() throws Exception {
     Declaration declaration = new Declaration("a", "String");
-    Assignment assignation = new Assignment("a", new Variable("\"Hello\""));
-    Print print = new Print(new Variable("a"));
+    Assignation assignation = new Assignation("a", new Variable("\"Hello\""));
+    Println printLn = new Println(new Variable("a"));
     NodeGroupResult nodeGroupResult = new NodeGroupResult();
     nodeGroupResult.addNode(declaration);
     nodeGroupResult.addNode(assignation);
-    nodeGroupResult.addNode(print);
+    nodeGroupResult.addNode(printLn);
 
     NodeGroupVisitor visitor = new NodeGroupVisitor();
     DefaultInterpreter interpreter = new DefaultInterpreter(visitor);
@@ -101,15 +97,15 @@ public class EvaluatorTest {
   }
 
   @Test
-  public void test009_GivenANodeGroupResultShouldPrintContent() throws NodeException {
+  public void test009_GivenANodeGroupResultShouldPrintContent() throws Exception {
     Declaration declaration = new Declaration("a", "number");
-    Assignment assignation =
-        new Assignment("a", new Expression(new Variable("5"), Operator.SUM, new Variable("2")));
-    Print print = new Print(new Variable("a"));
+    Assignation assignation =
+        new Assignation("a", new Expression(new Variable("5"), Operator.ADD, new Variable("2")));
+    Println printLn = new Println(new Variable("a"));
     NodeGroupResult nodeGroupResult = new NodeGroupResult();
     nodeGroupResult.addNode(declaration);
     nodeGroupResult.addNode(assignation);
-    nodeGroupResult.addNode(print);
+    nodeGroupResult.addNode(printLn);
 
     NodeGroupVisitor visitor = new NodeGroupVisitor();
     DefaultInterpreter interpreter = new DefaultInterpreter(visitor);

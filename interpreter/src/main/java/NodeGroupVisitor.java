@@ -1,32 +1,31 @@
-import ast.expression.Function;
-import ast.node.Assignment;
+import ast.node.Assignation;
 import ast.node.Declaration;
+import ast.node.Function;
 import ast.node.Node;
-import ast.node.NodeException;
 import ast.node.NodeGroupResult;
-import ast.node.NodeVisitor;
-import ast.node.Print;
+import ast.node.Println;
+import ast.visitor.NodeVisitor;
 import lombok.Getter;
 
 @Getter
 public class NodeGroupVisitor implements NodeVisitor {
 
-  private PrintResult printResult = new PrintResult();
+  private PrintlnResult printLnResult = new PrintlnResult();
 
   private Evaluator evaluator = new Evaluator();
 
   @Override
-  public void visit(NodeGroupResult nodeGroupResult) throws NodeException {
+  public void visit(NodeGroupResult nodeGroupResult) throws Exception {
     for (Node node : nodeGroupResult.getNodes()) {
       node.accept(this);
     }
   }
 
   @Override
-  public void visit(Declaration declaration) throws NodeException {
+  public void visit(Declaration declaration) throws Exception {
     String type = declaration.getType();
     String name = declaration.getVarName();
-    Function function = declaration.getValue();
+    Function function = declaration.getVal();
 
     evaluator.declareVariable(name);
 
@@ -38,9 +37,9 @@ public class NodeGroupVisitor implements NodeVisitor {
   }
 
   @Override
-  public void visit(Assignment assignment) throws NodeException {
-    String name = assignment.getName();
-    Function function = assignment.getValue();
+  public void visit(Assignation assignation) throws Exception {
+    String name = assignation.getName();
+    Function function = assignation.getVal();
 
     if (variableHasDefinedType(name)) {
       assignValue(evaluator.getVariableType(name), name, function);
@@ -50,17 +49,17 @@ public class NodeGroupVisitor implements NodeVisitor {
   }
 
   @Override
-  public void visit(Print print) throws NodeException {
-    print.getContent().accept(evaluator);
+  public void visit(Println printLn) throws Exception {
+    printLn.getContent().accept(evaluator);
     String output = evaluator.getOutput();
-    this.printResult.addContent(output);
+    this.printLnResult.addContent(output);
   }
 
   private boolean variableHasDefinedType(String name) {
     return evaluator.getVariableType(name) != null;
   }
 
-  private void assignValue(String type, String name, Function function) throws NodeException {
+  private void assignValue(String type, String name, Function function) throws Exception {
     function.accept(evaluator);
     if (!evaluator.validateType(type)) {
       throw new IllegalArgumentException("Not valid type");

@@ -1,9 +1,8 @@
-import ast.expression.Expression;
-import ast.expression.ExpressionVisitor;
-import ast.expression.Function;
-import ast.expression.Operator;
-import ast.expression.Variable;
-import ast.node.NodeException;
+import ast.node.Expression;
+import ast.node.Function;
+import ast.node.Operator;
+import ast.node.Variable;
+import ast.visitor.ExpressionVisitor;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -28,7 +27,7 @@ public class Evaluator implements ExpressionVisitor {
   }
 
   @Override
-  public void visitExpression(Expression expression) throws NodeException {
+  public void visitExpression(Expression expression) throws Exception {
     String leftOperand = getValue(expression.getLeft());
     String rightOperand = getValue(expression.getRight());
     Operator operator = expression.getOperator();
@@ -43,17 +42,17 @@ public class Evaluator implements ExpressionVisitor {
   @Override
   public void visitVariable(Variable variable) {
     if (variableHasAssignedValue(variable)) {
-      output = variablesWithValue.get(variable.getVariableName());
+      output = variablesWithValue.get(variable.getVarName());
     } else {
-      output = variable.getVariableName();
+      output = variable.getVarName();
     }
   }
 
   private boolean variableHasAssignedValue(Variable variable) {
-    return variablesWithValue.containsKey(variable.getVariableName());
+    return variablesWithValue.containsKey(variable.getVarName());
   }
 
-  private String getValue(Function function) throws NodeException {
+  private String getValue(Function function) throws Exception {
     function.accept(this);
     return output;
   }
@@ -88,7 +87,7 @@ public class Evaluator implements ExpressionVisitor {
   }
 
   private boolean isConcatenation(String leftOperand, String rightOperand, Operator operator) {
-    return (operator == Operator.SUM)
+    return (operator == Operator.ADD)
         && (isString(leftOperand) && isString(rightOperand)
             || isString(leftOperand) && isNumber(rightOperand)
             || isNumber(leftOperand) && isString(rightOperand));
@@ -112,7 +111,7 @@ public class Evaluator implements ExpressionVisitor {
 
     output =
         switch (operator) {
-          case SUM -> String.valueOf(leftValue + rightValue);
+          case ADD -> String.valueOf(leftValue + rightValue);
           case SUB -> String.valueOf(leftValue - rightValue);
           case MUL -> String.valueOf(leftValue * rightValue);
           case DIV -> String.valueOf(leftValue / rightValue);

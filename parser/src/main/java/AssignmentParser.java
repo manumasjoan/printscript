@@ -1,31 +1,32 @@
+import ast.node.Assignation;
 import ast.node.Function;
-import ast.node.Assignment;
 import org.austral.ingsis.printscript.common.TokenConsumer;
 import org.austral.ingsis.printscript.parser.TokenIterator;
 import org.jetbrains.annotations.NotNull;
 
-// Assignment -> Identifier Commons.Operator Expr Commons.Separator
-public class AssignmentParser extends TokenConsumer implements Parser<Assignment> {
+public class AssignmentParser extends TokenConsumer implements Parser<Assignation> {
 
-    private final FunctionParser expressionParser = new FunctionParser(getStream());
+  private final FunctionParser expressionParser = new FunctionParser(getStream());
 
-    public AssignmentParser(@NotNull TokenIterator stream) {
-        super(stream);
-    }
+  public AssignmentParser(@NotNull TokenIterator stream) {
+    super(stream);
+  }
 
-    @Override
-    public Assignment createNode() throws Exception {
-        if (peek(DefaultTokenTypes.IDENTIFIER) == null)
-            throw new Exception("Expected a: \"" +
-                    "identifier"
-            );
-        String variable = consume(DefaultTokenTypes.IDENTIFIER).getContent();
-        if (peek(DefaultTokenTypes.ASSIGN) == null)
-            throw new Exception("Expected a: \"" +
-                    "="
-            );
-        consume(DefaultTokenTypes.ASSIGN);
-        Function function = expressionParser.createNode();
-        return new Assignment(variable, function);
-    }
+  @Override
+  public Assignation createNode() throws Exception {
+    if (noIdentifierTokenFound()) throw new Exception("No identifier token found");
+    String variable = consume(DefaultTokenTypes.IDENTIFIER).getContent();
+    if (noAssignationTokenFound()) throw new Exception("No assignation token found");
+    consume(DefaultTokenTypes.ASSIGN);
+    Function function = expressionParser.createNode();
+    return new Assignation(variable, function);
+  }
+
+  private boolean noAssignationTokenFound() {
+    return peek(DefaultTokenTypes.ASSIGN) == null;
+  }
+
+  private boolean noIdentifierTokenFound() {
+    return peek(DefaultTokenTypes.IDENTIFIER) == null;
+  }
 }
