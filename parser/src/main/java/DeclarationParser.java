@@ -1,12 +1,12 @@
 import ast.node.Declaration;
-import ast.node.Function;
+import ast.node.MultiExpression;
 import org.austral.ingsis.printscript.common.TokenConsumer;
 import org.austral.ingsis.printscript.parser.TokenIterator;
 import org.jetbrains.annotations.NotNull;
 
 public class DeclarationParser extends TokenConsumer implements Parser<Declaration> {
 
-  private final FunctionParser functionParser = new FunctionParser(getStream());
+  private final MultiExpressionParser multiExpressionParser = new MultiExpressionParser(getStream());
 
   public DeclarationParser(@NotNull TokenIterator stream) {
     super(stream);
@@ -27,8 +27,8 @@ public class DeclarationParser extends TokenConsumer implements Parser<Declarati
     if (noAssignmentFound()) throw new Exception("No = found");
     consume(DefaultTokenTypes.ASSIGN, "=");
 
-    Function function = functionParser.createNode();
-    return new Declaration(variable, type, function);
+    MultiExpression multiExpression = multiExpressionParser.createNode();
+    return new Declaration(variable, type, multiExpression);
   }
 
   private boolean noAssignmentFound() {

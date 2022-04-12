@@ -1,5 +1,5 @@
 import ast.node.Expression;
-import ast.node.Function;
+import ast.node.MultiExpression;
 import ast.node.Operator;
 import ast.node.Variable;
 import ast.visitor.ExpressionVisitor;
@@ -52,8 +52,8 @@ public class Evaluator implements ExpressionVisitor {
     return variablesWithValue.containsKey(variable.getVarName());
   }
 
-  private String getValue(Function function) throws Exception {
-    function.accept(this);
+  private String getValue(MultiExpression multiExpression) throws Exception {
+    multiExpression.accept(this);
     return output;
   }
 

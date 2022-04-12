@@ -111,8 +111,8 @@ class ParserTest {
 
     @Test
     public void multiplicationTest() throws Exception {
-        Parser<Function> parser =
-                new FunctionParser(
+        Parser<MultiExpression> parser =
+                new MultiExpressionParser(
                         TokenIterator.Companion.create(
                                 "6 * 5",
                                 List.of(
@@ -145,8 +145,8 @@ class ParserTest {
 
     @Test
     public void subsTest() throws Exception {
-        Parser<Function> parser =
-                new FunctionParser(
+        Parser<MultiExpression> parser =
+                new MultiExpressionParser(
                         TokenIterator.Companion.create(
                                 "3 - 3",
                                 List.of(
@@ -177,9 +177,9 @@ class ParserTest {
     }
 
     @Test
-    public void functionTest() throws Exception {
-        Parser<Function> parser =
-                new FunctionParser(
+    public void multiExpressionTest() throws Exception {
+        Parser<MultiExpression> parser =
+                new MultiExpressionParser(
                         TokenIterator.Companion.create(
                                 "g - a * 'mery' + 10",
                                 List.of(

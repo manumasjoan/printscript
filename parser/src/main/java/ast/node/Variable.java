@@ -5,7 +5,7 @@ import ast.visitor.NodeVisitor;
 import lombok.Getter;
 
 @Getter
-public class Variable implements Function {
+public class Variable implements MultiExpression {
 
   private final String varName;
 
@@ -22,7 +22,7 @@ public class Variable implements Function {
   public void accept(NodeVisitor visitor) {}
 
   @Override
-  public Function addVariable(Operator operator, Variable variable) {
+  public MultiExpression addVariableWithOperator(Operator operator, Variable variable) {
     return new Expression(this, operator, variable);
   }
 

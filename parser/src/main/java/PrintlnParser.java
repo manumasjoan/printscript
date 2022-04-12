@@ -1,11 +1,11 @@
-import ast.node.Function;
+import ast.node.MultiExpression;
 import ast.node.Println;
 import org.austral.ingsis.printscript.common.TokenConsumer;
 import org.austral.ingsis.printscript.parser.TokenIterator;
 import org.jetbrains.annotations.NotNull;
 
 public class PrintlnParser extends TokenConsumer implements Parser<Println> {
-  private final FunctionParser expressionParser = new FunctionParser(getStream());
+  private final MultiExpressionParser expressionParser = new MultiExpressionParser(getStream());
 
   public PrintlnParser(@NotNull TokenIterator stream) {
     super(stream);
@@ -16,7 +16,7 @@ public class PrintlnParser extends TokenConsumer implements Parser<Println> {
     consume(DefaultTokenTypes.KEYWORD, "println");
     if (noOpenParenthesisFound()) throw new Exception("No open parenthesis found");
     consume(DefaultTokenTypes.SEPARATOR, "(");
-    Function content = expressionParser.createNode();
+    MultiExpression content = expressionParser.createNode();
     if (noCLosingParenthesisFound()) throw new Exception("No closing parenthesis found");
     consume(DefaultTokenTypes.SEPARATOR, ")");
     return new Println(content);

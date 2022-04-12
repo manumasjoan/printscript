@@ -7,9 +7,9 @@ import lombok.Getter;
 public class Assignation implements Node {
 
   private final String name;
-  private final Function val;
+  private final MultiExpression val;
 
-  public Assignation(String name, Function val) {
+  public Assignation(String name, MultiExpression val) {
     this.name = name;
     this.val = val;
   }
