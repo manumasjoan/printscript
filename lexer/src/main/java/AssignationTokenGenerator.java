@@ -48,7 +48,7 @@ public class AssignationTokenGenerator implements TokenGenerator {
   }
 
   private boolean isAssignation(LexicalRangeState lexicalRangeState, String input) {
-    String nextChar = String.valueOf(input.charAt(lexicalRangeState.getIndex()));
-    return assignations.contains(nextChar);
+    String followingChar = String.valueOf(input.charAt(lexicalRangeState.getIndex()));
+    return assignations.contains(followingChar);
   }
 }

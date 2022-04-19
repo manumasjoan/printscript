@@ -6,7 +6,7 @@ import org.austral.ingsis.printscript.common.Token;
 @Getter
 public class DefaultLexer implements Lexer {
 
-  private List<TokenGenerator> tokenGenerators;
+  private final List<TokenGenerator> tokenGenerators;
 
   public DefaultLexer() {
     this.tokenGenerators = new ArrayList<>();
@@ -31,8 +31,7 @@ public class DefaultLexer implements Lexer {
       for (TokenGenerator tokenGenerator : tokenGenerators) {
         TokenGeneratorResult tokenGeneratorResult = tokenGenerator.read(lexicalRangeState, input);
         if (tokenGeneratorResult.tokenWasGenerated()) {
-          if (tokenGeneratorResult.getToken().getType() != DefaultTokenTypes.SKIP_LINE
-              && tokenGeneratorResult.getToken().getType() != DefaultTokenTypes.SPACE) {
+          if (isNotSkipLineOrSpace(tokenGeneratorResult)) {
             tokens.add(tokenGeneratorResult.getToken());
           }
           lexicalRangeState = tokenGeneratorResult.getLexicalRangeState();
@@ -42,5 +41,10 @@ public class DefaultLexer implements Lexer {
     }
 
     return tokens;
+  }
+
+  private boolean isNotSkipLineOrSpace(TokenGeneratorResult tokenGeneratorResult) {
+    return tokenGeneratorResult.getToken().getType() != DefaultTokenTypes.SKIP_LINE
+        && tokenGeneratorResult.getToken().getType() != DefaultTokenTypes.SPACE;
   }
 }
