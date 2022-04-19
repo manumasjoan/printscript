@@ -6,7 +6,8 @@ import org.jetbrains.annotations.NotNull;
 
 public class DeclarationParser extends TokenConsumer implements Parser<Declaration> {
 
-  private final MultiExpressionParser multiExpressionParser = new MultiExpressionParser(getStream());
+  private final MultiExpressionParser multiExpressionParser =
+      new MultiExpressionParser(getStream());
 
   public DeclarationParser(@NotNull TokenIterator stream) {
     super(stream);
@@ -15,20 +16,34 @@ public class DeclarationParser extends TokenConsumer implements Parser<Declarati
   @Override
   public Declaration createNode() throws Exception {
     consume(DefaultTokenTypes.KEYWORD, "let");
-    if (noIdentifierFound()) throw new Exception("No identifier found");
-    String variable = consume(DefaultTokenTypes.IDENTIFIER).getContent();
-    if (noSeparatorFound()) throw new Exception("No : found");
-    consume(DefaultTokenTypes.SEPARATOR, ":");
-    if (noIdentifierFound()) throw new Exception("No type found");
-    String type = consume(DefaultTokenTypes.IDENTIFIER).getContent();
-
+    String variable = getVariable();
+    lookForSeparator();
+    String type = getType();
     if (separatorFound()) return new Declaration(variable, type);
-
-    if (noAssignmentFound()) throw new Exception("No = found");
-    consume(DefaultTokenTypes.ASSIGN, "=");
-
+    lookForAssignment();
     MultiExpression multiExpression = multiExpressionParser.createNode();
     return new Declaration(variable, type, multiExpression);
+  }
+
+  private void lookForAssignment() throws Exception {
+    if (noAssignmentFound()) throw new Exception("No = found");
+    consume(DefaultTokenTypes.ASSIGN, "=");
+  }
+
+  private String getType() throws Exception {
+    if (noIdentifierFound()) throw new Exception("No type found");
+    String type = consume(DefaultTokenTypes.IDENTIFIER).getContent();
+    return type;
+  }
+
+  private void lookForSeparator() throws Exception {
+    if (noSeparatorFound()) throw new Exception("No : found");
+    consume(DefaultTokenTypes.SEPARATOR, ":");
+  }
+
+  private String getVariable() throws Exception {
+    if (noIdentifierFound()) throw new Exception("No identifier found");
+    return consume(DefaultTokenTypes.IDENTIFIER).getContent();
   }
 
   private boolean noAssignmentFound() {

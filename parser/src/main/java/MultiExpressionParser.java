@@ -12,18 +12,20 @@ public class MultiExpressionParser extends TokenConsumer implements Parser<Multi
 
   @Override
   public MultiExpression createNode() throws Exception {
-    if (identifierOrLiteralNotFound()) throw new Exception("No identifier or literal found");
-    String val = consumeAny(DefaultTokenTypes.IDENTIFIER, DefaultTokenTypes.LITERAL).getContent();
+    String val = getValue();
     if (noOperatorFound()) return new Variable(val);
     MultiExpression output = new Variable(val);
     while (operatorIsFound()) {
       Operator operator = Operator.getOperator(consume(DefaultTokenTypes.OPERATOR).getContent());
-      if (identifierOrLiteralNotFound()) throw new Exception("No identifier or literal found");
-      String next =
-          consumeAny(DefaultTokenTypes.IDENTIFIER, DefaultTokenTypes.LITERAL).getContent();
-      output = output.addVariableWithOperator(operator, new Variable(next));
+      String followingValue = getValue();
+      output = output.addVariableWithOperator(operator, new Variable(followingValue));
     }
     return output;
+  }
+
+  private String getValue() throws Exception {
+    if (identifierOrLiteralNotFound()) throw new Exception("No identifier or literal found");
+    return consumeAny(DefaultTokenTypes.IDENTIFIER, DefaultTokenTypes.LITERAL).getContent();
   }
 
   private boolean operatorIsFound() {

@@ -6,7 +6,7 @@ import ast.node.NodeGroupResult;
 import ast.node.Println;
 
 public interface NodeVisitor {
-  void visit(NodeGroupResult codeBlock) throws Exception;
+  void visit(NodeGroupResult nodeGroupResult) throws Exception;
 
   void visit(Declaration declaration) throws Exception;
 

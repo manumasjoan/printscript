@@ -59,7 +59,8 @@ public class NodeGroupVisitor implements NodeVisitor {
     return evaluator.getVariableType(name) != null;
   }
 
-  private void assignValue(String type, String name, MultiExpression multiExpression) throws Exception {
+  private void assignValue(String type, String name, MultiExpression multiExpression)
+      throws Exception {
     multiExpression.accept(evaluator);
     if (!evaluator.validateType(type)) {
       throw new IllegalArgumentException("Not valid type");

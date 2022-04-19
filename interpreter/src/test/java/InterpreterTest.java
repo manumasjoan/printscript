@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
 
-public class EvaluatorTest {
+public class InterpreterTest {
 
   private final Evaluator evaluator = new Evaluator();
 

@@ -1,6 +1,6 @@
 package ast.node;
 
-import ast.visitor.ExpressionVisitor;
+import ast.visitor.MultiExpressionVisitor;
 import ast.visitor.NodeVisitor;
 import lombok.Getter;
 
@@ -14,7 +14,7 @@ public class Variable implements MultiExpression {
   }
 
   @Override
-  public void accept(ExpressionVisitor visitor) throws Exception {
+  public void accept(MultiExpressionVisitor visitor) throws Exception {
     visitor.visitVariable(this);
   }
 

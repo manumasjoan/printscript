@@ -2,14 +2,14 @@ import ast.node.Expression;
 import ast.node.MultiExpression;
 import ast.node.Operator;
 import ast.node.Variable;
-import ast.visitor.ExpressionVisitor;
+import ast.visitor.MultiExpressionVisitor;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import lombok.Getter;
 
 @Getter
-public class Evaluator implements ExpressionVisitor {
+public class Evaluator implements MultiExpressionVisitor {
 
   private String output;
   private Map<String, String> variablesWithValue;

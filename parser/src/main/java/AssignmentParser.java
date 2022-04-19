@@ -14,12 +14,21 @@ public class AssignmentParser extends TokenConsumer implements Parser<Assignatio
 
   @Override
   public Assignation createNode() throws Exception {
-    if (noIdentifierTokenFound()) throw new Exception("No identifier token found");
-    String variable = consume(DefaultTokenTypes.IDENTIFIER).getContent();
-    if (noAssignationTokenFound()) throw new Exception("No assignation token found");
-    consume(DefaultTokenTypes.ASSIGN);
+    String variable = getVariable();
+    lookForAssignation();
     MultiExpression multiExpression = expressionParser.createNode();
     return new Assignation(variable, multiExpression);
+  }
+
+  private void lookForAssignation() throws Exception {
+    if (noAssignationTokenFound()) throw new Exception("No assignation token found");
+    consume(DefaultTokenTypes.ASSIGN);
+  }
+
+  private String getVariable() throws Exception {
+    if (noIdentifierTokenFound()) throw new Exception("No identifier token found");
+    String variable = getVariableValue();
+    return variable;
   }
 
   private boolean noAssignationTokenFound() {
@@ -28,5 +37,9 @@ public class AssignmentParser extends TokenConsumer implements Parser<Assignatio
 
   private boolean noIdentifierTokenFound() {
     return peek(DefaultTokenTypes.IDENTIFIER) == null;
+  }
+
+  private String getVariableValue() {
+    return consume(DefaultTokenTypes.IDENTIFIER).getContent();
   }
 }
