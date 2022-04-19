@@ -1,7 +1,7 @@
 name: Publish package to GitHub Packages
 on:
   release:
-    branches: [main]
+    branches: [master]
     types: [created]
 jobs:
   publish:
@@ -22,5 +22,4 @@ jobs:
         with:
           arguments: publish
         env:
-          GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
