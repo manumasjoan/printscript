@@ -1,25 +1,14 @@
-import org.austral.ingsis.printscript.common.LexicalRange;
 import org.austral.ingsis.printscript.common.Token;
 
-public class SkipLineTokenGenerator implements TokenGenerator {
+public class SkipLineTokenGenerator extends TokenGenerator {
 
   @Override
   public TokenGeneratorResult read(LexicalRangeState lexicalRangeState, String input) {
     if (!isLineBreak(lexicalRangeState, input)) return new TokenGeneratorResult(lexicalRangeState);
 
-    int index = lexicalRangeState.getIndex();
-    Token token =
-        new Token(
-            DefaultTokenTypes.SKIP_LINE,
-            index,
-            index,
-            new LexicalRange(
-                lexicalRangeState.getColumn(),
-                lexicalRangeState.getLine(),
-                lexicalRangeState.getColumn(),
-                lexicalRangeState.getLine()));
-
+    Token token = createToken(DefaultTokenTypes.SKIP_LINE, lexicalRangeState, 1);
     LexicalRangeState newState = lexicalRangeState.lineBreak();
+
     return new TokenGeneratorResult(token, newState);
   }
 

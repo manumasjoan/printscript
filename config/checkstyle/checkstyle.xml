@@ -88,19 +88,19 @@
         </module>
 
         <module name="PackageName">
-            <!-- Validates identifiers for package names against the supplied expression. -->
+            <!-- Validates identifiers for package names against the supplied operation. -->
             <property name="format" value="^[a-z]+(\.[a-z][a-z0-9]{1,})*$"/>
             <property name="severity" value="warning"/>
         </module>
 
         <module name="TypeName">
-            <!-- Validates static, final fields against the expression "^[A-Z][a-zA-Z0-9]*$". -->
+            <!-- Validates static, final fields against the operation "^[A-Z][a-zA-Z0-9]*$". -->
             <metadata name="altname" value="TypeName"/>
             <property name="severity" value="warning"/>
         </module>
 
         <module name="ConstantName">
-            <!-- Validates non-private, static, final fields against the expression "^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$". -->
+            <!-- Validates non-private, static, final fields against the operation "^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$". -->
             <metadata name="altname" value="ConstantName"/>
             <property name="applyToPrivate" value="false"/>
             <message key="name.invalidPattern"
@@ -109,14 +109,14 @@
         </module>
 
         <module name="StaticVariableName">
-            <!-- Validates static, non-final fields against the supplied expression. -->
+            <!-- Validates static, non-final fields against the supplied operation. -->
             <metadata name="altname" value="StaticVariableName"/>
             <property name="format" value="^[a-z][a-zA-Z0-9]*_?$"/>
             <property name="severity" value="warning"/>
         </module>
 
         <module name="MemberName">
-            <!-- Validates non-static members against the supplied expression. -->
+            <!-- Validates non-static members against the supplied operation. -->
             <metadata name="altname" value="MemberName"/>
             <property name="format" value="^[a-z][a-zA-Z0-9]*$"/>
             <property name="severity" value="warning"/>
@@ -124,23 +124,23 @@
 
         <!--
         <module name="MethodName">
-             Validates identifiers for method names against the supplied expression.
+             Validates identifiers for method names against the supplied operation.
             <metadata name="altname" value="MethodName"/>
             <property name="format" value="^[a-z][a-zA-Z0-9]*(_[a-z][a-zA-Z0-9]+){0,2}$"/>
         </module>-->
 
         <module name="ParameterName">
-            <!-- Validates identifiers for method parameters against the expression "^[a-z][a-zA-Z0-9]*$". -->
+            <!-- Validates identifiers for method parameters against the operation "^[a-z][a-zA-Z0-9]*$". -->
             <property name="severity" value="warning"/>
         </module>
 
         <module name="LocalFinalVariableName">
-            <!-- Validates identifiers for local final variables against the expression "^[a-z][a-zA-Z0-9]*$". -->
+            <!-- Validates identifiers for local final variables against the operation "^[a-z][a-zA-Z0-9]*$". -->
             <property name="severity" value="warning"/>
         </module>
 
         <module name="LocalVariableName">
-            <!-- Validates identifiers for local variables against the expression "^[a-z][a-zA-Z0-9]*$". -->
+            <!-- Validates identifiers for local variables against the operation "^[a-z][a-zA-Z0-9]*$". -->
             <property name="severity" value="warning"/>
         </module>
 

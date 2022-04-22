@@ -1,6 +1,6 @@
 import ast.node.Assignation;
 import ast.node.Declaration;
-import ast.node.MultiExpression;
+import ast.node.Expression;
 import ast.node.Node;
 import ast.node.NodeGroupResult;
 import ast.node.Println;
@@ -25,12 +25,12 @@ public class NodeGroupVisitor implements NodeVisitor {
   public void visit(Declaration declaration) throws Exception {
     String type = declaration.getType();
     String name = declaration.getVarName();
-    MultiExpression multiExpression = declaration.getVal();
+    Expression expression = declaration.getVal();
 
     evaluator.declareVariable(name);
 
-    if (multiExpression != null) {
-      assignValue(type, name, multiExpression);
+    if (expression != null) {
+      assignValue(type, name, expression);
     }
 
     evaluator.addVariableWithType(name, type);
@@ -39,10 +39,10 @@ public class NodeGroupVisitor implements NodeVisitor {
   @Override
   public void visit(Assignation assignation) throws Exception {
     String name = assignation.getName();
-    MultiExpression multiExpression = assignation.getVal();
+    Expression expression = assignation.getVal();
 
     if (variableHasDefinedType(name)) {
-      assignValue(evaluator.getVariableType(name), name, multiExpression);
+      assignValue(evaluator.getVariableType(name), name, expression);
     } else {
       throw new IllegalArgumentException("variable has no defined type");
     }
@@ -59,9 +59,8 @@ public class NodeGroupVisitor implements NodeVisitor {
     return evaluator.getVariableType(name) != null;
   }
 
-  private void assignValue(String type, String name, MultiExpression multiExpression)
-      throws Exception {
-    multiExpression.accept(evaluator);
+  private void assignValue(String type, String name, Expression expression) throws Exception {
+    expression.accept(evaluator);
     if (!evaluator.validateType(type)) {
       throw new IllegalArgumentException("Not valid type");
     }

@@ -6,18 +6,19 @@ import org.austral.ingsis.printscript.parser.Content;
 import org.austral.ingsis.printscript.parser.TokenIterator;
 import org.jetbrains.annotations.NotNull;
 
-public class MainParser extends TokenConsumer implements Parser<Node> {
+public class DefaultParser extends TokenConsumer implements Parser<Node> {
 
   private final PrintlnParser printLnParser = new PrintlnParser(getStream());
   private final AssignmentParser assignmentParser = new AssignmentParser(getStream());
   private final DeclarationParser declarationParser = new DeclarationParser(getStream());
 
-  public MainParser(@NotNull TokenIterator stream) {
+  public DefaultParser(@NotNull TokenIterator stream) {
     super(stream);
   }
 
+  // todo: cambie que devuelva una lista de nodos en vez de un Node solo
   @Override
-  public Node createNode() throws Exception {
+  public NodeGroupResult createNode() throws Exception {
     NodeGroupResult nodeGroup = new NodeGroupResult();
 
     Content<String> followingToken;
@@ -34,6 +35,8 @@ public class MainParser extends TokenConsumer implements Parser<Node> {
         } else throw new Exception("Unexpected keyword: " + followingToken.getContent());
       }
       consume(DefaultTokenTypes.SEPARATOR, ";");
+
+      System.out.println(nodeGroup);
     }
 
     return nodeGroup;

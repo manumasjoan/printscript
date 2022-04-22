@@ -1,28 +1,12 @@
-import org.austral.ingsis.printscript.common.LexicalRange;
 import org.austral.ingsis.printscript.common.Token;
 
-public class SpaceTokenGenerator implements TokenGenerator {
+public class SpaceTokenGenerator extends TokenGenerator {
   @Override
   public TokenGeneratorResult read(LexicalRangeState lexicalRangeState, String input) {
     if (!isSpace(lexicalRangeState, input)) return new TokenGeneratorResult(lexicalRangeState);
 
-    int index = lexicalRangeState.getIndex();
-    Token token =
-        new Token(
-            DefaultTokenTypes.SPACE,
-            index,
-            index,
-            new LexicalRange(
-                lexicalRangeState.getColumn(),
-                lexicalRangeState.getLine(),
-                lexicalRangeState.getColumn(),
-                lexicalRangeState.getLine()));
-
-    LexicalRangeState newState =
-        lexicalRangeState.updateState(
-            lexicalRangeState.getIndex() + 1,
-            lexicalRangeState.getLine(),
-            lexicalRangeState.getColumn() + 1);
+    Token token = createToken(DefaultTokenTypes.SPACE, lexicalRangeState, 1);
+    LexicalRangeState newState = updateState(lexicalRangeState, 1);
 
     return new TokenGeneratorResult(token, newState);
   }

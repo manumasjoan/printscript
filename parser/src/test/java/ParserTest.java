@@ -53,22 +53,22 @@ class ParserTest {
 
   @Test
   public void Test004_multiplication() throws Exception {
-    Parser<MultiExpression> parser =
-        new MultiExpressionParser(
+    Parser<Expression> parser =
+        new ExpressionParser(
             TokenIterator.Companion.create(
                 "60 * 5",
                 List.of(
                     new Token(DefaultTokenTypes.LITERAL, 0, 2, new LexicalRange(0, 0, 2, 0)),
                     new Token(DefaultTokenTypes.OPERATOR, 3, 4, new LexicalRange(3, 0, 4, 0)),
                     new Token(DefaultTokenTypes.LITERAL, 5, 6, new LexicalRange(5, 0, 6, 0)))));
-    Expression expression = new Expression(new Variable("60"), Operator.MUL, new Variable("5"));
-    assertEquals(expression.toString(), parser.createNode().toString());
+    Operation operation = new Operation(new Variable("60"), Operator.MUL, new Variable("5"));
+    assertEquals(operation.toString(), parser.createNode().toString());
   }
 
   @Test
   public void Test005_incorrectTokenTest() {
     Parser<Node> parser =
-        new MainParser(
+        new DefaultParser(
             TokenIterator.Companion.create(
                 "let",
                 List.of(

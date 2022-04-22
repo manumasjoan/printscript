@@ -1,8 +1,7 @@
-import org.austral.ingsis.printscript.common.LexicalRange;
 import org.austral.ingsis.printscript.common.Token;
 import org.jetbrains.annotations.NotNull;
 
-public class StringTokenGenerator implements TokenGenerator {
+public class StringTokenGenerator extends TokenGenerator {
 
   @Override
   public TokenGeneratorResult read(LexicalRangeState lexicalRangeState, String input) {
@@ -10,38 +9,23 @@ public class StringTokenGenerator implements TokenGenerator {
     if (!startsWithQuoteMarks(lexicalRangeState, input))
       return new TokenGeneratorResult(lexicalRangeState);
     if (hasClosingMark(lexicalRangeState, input)) {
-      return createToken(lexicalRangeState, input);
+      return generateToken(lexicalRangeState, input);
     } else {
       throw new IllegalArgumentException("Missing closing quotemark");
     }
   }
 
   @NotNull
-  private TokenGeneratorResult createToken(LexicalRangeState lexicalRangeState, String input) {
+  private TokenGeneratorResult generateToken(LexicalRangeState lexicalRangeState, String input) {
     StringBuilder string = new StringBuilder();
     int index = lexicalRangeState.getIndex();
     int closingQuoteMark = getClosingQuoteMark(lexicalRangeState, input);
     string.append(input, index, index + closingQuoteMark + 2);
-    Token token =
-        new Token(
-            DefaultTokenTypes.LITERAL,
-            index,
-            index + string.length() - 1,
-            new LexicalRange(
-                lexicalRangeState.getColumn(),
-                lexicalRangeState.getLine(),
-                lexicalRangeState.getColumn() + string.length() - 1,
-                lexicalRangeState.getLine()));
-    LexicalRangeState newState = updateState(lexicalRangeState, index, closingQuoteMark);
-    return new TokenGeneratorResult(token, newState);
-  }
 
-  private LexicalRangeState updateState(
-      LexicalRangeState lexicalRangeState, int index, int closingQuoteMark) {
-    return lexicalRangeState.updateState(
-        index + closingQuoteMark + 2,
-        lexicalRangeState.getLine(),
-        lexicalRangeState.getColumn() + closingQuoteMark + 2);
+    Token token = createToken(DefaultTokenTypes.LITERAL, lexicalRangeState, string.length());
+    LexicalRangeState newState = updateState(lexicalRangeState, closingQuoteMark + 2);
+
+    return new TokenGeneratorResult(token, newState);
   }
 
   private boolean startsWithQuoteMarks(LexicalRangeState lexicalRangeState, String input) {

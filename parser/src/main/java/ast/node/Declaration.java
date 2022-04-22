@@ -7,9 +7,9 @@ import lombok.Getter;
 public class Declaration implements Node {
   private final String varName;
   private final String type;
-  private MultiExpression val;
+  private Expression val;
 
-  public Declaration(String varName, String type, MultiExpression val) {
+  public Declaration(String varName, String type, Expression val) {
     this.varName = varName;
     this.type = type;
     this.val = val;

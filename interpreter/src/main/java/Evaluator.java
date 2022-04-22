@@ -1,15 +1,15 @@
 import ast.node.Expression;
-import ast.node.MultiExpression;
+import ast.node.Operation;
 import ast.node.Operator;
 import ast.node.Variable;
-import ast.visitor.MultiExpressionVisitor;
+import ast.visitor.ExpressionVisitor;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import lombok.Getter;
 
 @Getter
-public class Evaluator implements MultiExpressionVisitor {
+public class Evaluator implements ExpressionVisitor {
 
   private String output;
   private Map<String, String> variablesWithValue;
@@ -27,10 +27,10 @@ public class Evaluator implements MultiExpressionVisitor {
   }
 
   @Override
-  public void visitExpression(Expression expression) throws Exception {
-    String leftOperand = getValue(expression.getLeft());
-    String rightOperand = getValue(expression.getRight());
-    Operator operator = expression.getOperator();
+  public void visitOperation(Operation operation) throws Exception {
+    String leftOperand = getValue(operation.getLeft());
+    String rightOperand = getValue(operation.getRight());
+    Operator operator = operation.getOperator();
 
     if (isConcatenation(leftOperand, rightOperand, operator)) {
       concatenate(leftOperand, rightOperand);
@@ -52,8 +52,8 @@ public class Evaluator implements MultiExpressionVisitor {
     return variablesWithValue.containsKey(variable.getVarName());
   }
 
-  private String getValue(MultiExpression multiExpression) throws Exception {
-    multiExpression.accept(this);
+  private String getValue(Expression expression) throws Exception {
+    expression.accept(this);
     return output;
   }
 
