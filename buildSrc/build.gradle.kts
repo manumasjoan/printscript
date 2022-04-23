@@ -17,8 +17,6 @@ repositories {
 dependencies {
     implementation("com.github.sherter.google-java-format:com.github.sherter.google-java-format.gradle.plugin:0.9")
 
-    // https://mvnrepository.com/artifact/info.picocli/picocli
-    implementation("info.picocli:picocli:4.6.1")
 
 }
 
