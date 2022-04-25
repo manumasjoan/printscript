@@ -16,7 +16,6 @@ public class DefaultParser extends TokenConsumer implements Parser<Node> {
     super(stream);
   }
 
-  // todo: cambie que devuelva una lista de nodos en vez de un Node solo
   @Override
   public NodeGroupResult createNode() throws Exception {
     NodeGroupResult nodeGroup = new NodeGroupResult();

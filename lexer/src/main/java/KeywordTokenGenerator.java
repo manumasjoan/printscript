@@ -8,12 +8,6 @@ public class KeywordTokenGenerator extends TokenGenerator {
 
   private List<String> keywords;
 
-  public KeywordTokenGenerator() {
-    keywords = new ArrayList<>();
-    keywords.add("let");
-    keywords.add("println");
-  }
-
   public KeywordTokenGenerator(List<String> keywords) {
     this.keywords = keywords;
   }

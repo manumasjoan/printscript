@@ -8,14 +8,6 @@ public class OperatorTokenGenerator extends TokenGenerator {
 
   private List<String> operators;
 
-  public OperatorTokenGenerator() {
-    operators = new ArrayList<>();
-    operators.add("+");
-    operators.add("-");
-    operators.add("*");
-    operators.add("/");
-  }
-
   public OperatorTokenGenerator(List<String> operators) {
     this.operators = operators;
   }

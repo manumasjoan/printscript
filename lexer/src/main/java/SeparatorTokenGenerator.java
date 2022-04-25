@@ -1,18 +1,9 @@
-import java.util.ArrayList;
 import java.util.List;
 import org.austral.ingsis.printscript.common.Token;
 
 public class SeparatorTokenGenerator extends TokenGenerator {
 
   private List<String> separators;
-
-  public SeparatorTokenGenerator() {
-    separators = new ArrayList<>();
-    separators.add(";");
-    separators.add("(");
-    separators.add(")");
-    separators.add(":");
-  }
 
   public SeparatorTokenGenerator(List<String> separators) {
     this.separators = separators;

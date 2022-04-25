@@ -1,15 +1,9 @@
-import java.util.ArrayList;
 import java.util.List;
 import org.austral.ingsis.printscript.common.Token;
 
 public class AssignationTokenGenerator extends TokenGenerator {
 
   private List<String> assignations;
-
-  public AssignationTokenGenerator() {
-    assignations = new ArrayList<>();
-    assignations.add("=");
-  }
 
   public AssignationTokenGenerator(List<String> assignations) {
     this.assignations = assignations;
