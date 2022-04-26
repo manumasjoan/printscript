@@ -22,8 +22,8 @@ repositories {
         maven {
             url = uri("https://maven.pkg.github.com/austral-ingsis/printscript-parser-common")
             credentials {
-                username = project.findProperty("user") as String?
-                password = project.findProperty("token") as String?
+                username = project.findProperty("user") as String? ?: System.getenv("GITHUB_ACTOR")
+                password = project.findProperty("token") as String? ?: System.getenv("GITHUB_TOKEN")
             }
         }
     }
@@ -56,7 +56,8 @@ googleJavaFormat {
     toolVersion = "1.12.0" }
 
 checkstyle {
-    toolVersion = "8.29"
+    toolVersion = "9.3"
+    configFile =file("${rootDir}/config/checkstyle/checkstyle.xml")
 }
 
 jacoco{
