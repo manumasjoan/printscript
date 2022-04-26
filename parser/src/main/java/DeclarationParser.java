@@ -36,7 +36,7 @@ public class DeclarationParser extends TokenConsumer implements Parser<Declarati
   }
 
   private void lookForSeparator() throws Exception {
-    if (noSeparatorFound()) throw new Exception("No : found");
+    if (noSeparatorFound()) throw new Exception("No type defined");
     consume(DefaultTokenTypes.SEPARATOR, ":");
   }
 

@@ -35,7 +35,6 @@ public class DefaultParser extends TokenConsumer implements Parser<Node> {
       }
       consume(DefaultTokenTypes.SEPARATOR, ";");
 
-      System.out.println(nodeGroup);
     }
 
     return nodeGroup;

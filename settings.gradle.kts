@@ -8,5 +8,5 @@
  */
 
 rootProject.name = "printscript"
-include( "lexer","parser","interpreter")
+include( "lexer","parser","interpreter","cli")
 
