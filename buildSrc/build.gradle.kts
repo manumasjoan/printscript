@@ -17,7 +17,7 @@ repositories {
         url = uri("https://maven.pkg.github.com/austral-ingsis/printscript-parser-common")
         credentials {
             username = project.findProperty("user") as String?
-                password = project.findProperty("token") as String?
+            password = project.findProperty("token") as String?
         }
     }
 }
@@ -26,7 +26,6 @@ repositories {
 dependencies {
     implementation("com.github.sherter.google-java-format:com.github.sherter.google-java-format.gradle.plugin:0.9")
     implementation("org.austral.ingsis.printscript:printscript-parser-common:0.1.3")
-
 
 }
 
