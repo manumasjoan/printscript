@@ -12,6 +12,8 @@ plugins {
 
     jacoco
 
+    `maven-publish`
+
 }
 
 repositories {
@@ -51,6 +53,25 @@ dependencies {
 
 
 }
+
+publishing {
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/manumasjoan/printscript")
+            credentials {
+                username = System.getenv("GITHUB_ACTOR")
+                password = System.getenv("GITHUB_TOKEN")
+            }
+        }
+    }
+    publications {
+        create<MavenPublication>("mavenJava") {
+            from(components["java"])
+        }
+    }
+}
+
 
 googleJavaFormat {
     toolVersion = "1.12.0" }
