@@ -34,7 +34,6 @@ public class DefaultParser extends TokenConsumer implements Parser<Node> {
         } else throw new Exception("Unexpected keyword: " + followingToken.getContent());
       }
       consume(DefaultTokenTypes.SEPARATOR, ";");
-
     }
 
     return nodeGroup;

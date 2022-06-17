@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
 import org.austral.ingsis.printscript.common.Token;

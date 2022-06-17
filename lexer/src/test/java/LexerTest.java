@@ -11,7 +11,6 @@ public class LexerTest {
   private final LexerBuilder builder = new LexerBuilder();
   private final Lexer lexer = builder.buildLexer1();
 
-
   @Test
   public void Test001_GivenInputWithLetAndPrintlnShouldReturnKeywordTokens() {
 
