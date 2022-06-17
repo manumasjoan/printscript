@@ -1,13 +1,12 @@
 import ast.node.Declaration;
-import ast.node.MultiExpression;
+import ast.node.Expression;
 import org.austral.ingsis.printscript.common.TokenConsumer;
 import org.austral.ingsis.printscript.parser.TokenIterator;
 import org.jetbrains.annotations.NotNull;
 
 public class DeclarationParser extends TokenConsumer implements Parser<Declaration> {
 
-  private final MultiExpressionParser multiExpressionParser =
-      new MultiExpressionParser(getStream());
+  private final ExpressionParser expressionParser = new ExpressionParser(getStream());
 
   public DeclarationParser(@NotNull TokenIterator stream) {
     super(stream);
@@ -21,8 +20,8 @@ public class DeclarationParser extends TokenConsumer implements Parser<Declarati
     String type = getType();
     if (separatorFound()) return new Declaration(variable, type);
     lookForAssignment();
-    MultiExpression multiExpression = multiExpressionParser.createNode();
-    return new Declaration(variable, type, multiExpression);
+    Expression expression = expressionParser.createNode();
+    return new Declaration(variable, type, expression);
   }
 
   private void lookForAssignment() throws Exception {
@@ -37,7 +36,7 @@ public class DeclarationParser extends TokenConsumer implements Parser<Declarati
   }
 
   private void lookForSeparator() throws Exception {
-    if (noSeparatorFound()) throw new Exception("No : found");
+    if (noSeparatorFound()) throw new Exception("No type defined");
     consume(DefaultTokenTypes.SEPARATOR, ":");
   }
 

@@ -5,9 +5,9 @@ import lombok.Getter;
 
 @Getter
 public class Println implements Node {
-  private final MultiExpression content;
+  private final Expression content;
 
-  public Println(MultiExpression content) {
+  public Println(Expression content) {
     this.content = content;
   }
 

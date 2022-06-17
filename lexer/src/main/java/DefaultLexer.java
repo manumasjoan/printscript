@@ -8,17 +8,8 @@ public class DefaultLexer implements Lexer {
 
   private final List<TokenGenerator> tokenGenerators;
 
-  public DefaultLexer() {
-    this.tokenGenerators = new ArrayList<>();
-    tokenGenerators.add(new StringTokenGenerator());
-    tokenGenerators.add(new NumberTokenGenerator());
-    tokenGenerators.add(new SpaceTokenGenerator());
-    tokenGenerators.add(new SkipLineTokenGenerator());
-    tokenGenerators.add(new KeywordTokenGenerator());
-    tokenGenerators.add(new OperatorTokenGenerator());
-    tokenGenerators.add(new AssignationTokenGenerator());
-    tokenGenerators.add(new IdentifierTokenGenerator());
-    tokenGenerators.add(new SeparatorTokenGenerator());
+  public DefaultLexer(List<TokenGenerator> tokenGenerators) {
+    this.tokenGenerators = tokenGenerators;
   }
 
   @Override

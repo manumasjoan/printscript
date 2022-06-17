@@ -1,11 +1,11 @@
 package ast.node;
 
-import ast.visitor.MultiExpressionVisitor;
+import ast.visitor.ExpressionVisitor;
 import ast.visitor.NodeVisitor;
 import lombok.Getter;
 
 @Getter
-public class Variable implements MultiExpression {
+public class Variable implements Expression {
 
   private final String varName;
 
@@ -14,7 +14,7 @@ public class Variable implements MultiExpression {
   }
 
   @Override
-  public void accept(MultiExpressionVisitor visitor) throws Exception {
+  public void accept(ExpressionVisitor visitor) throws Exception {
     visitor.visitVariable(this);
   }
 
@@ -22,8 +22,8 @@ public class Variable implements MultiExpression {
   public void accept(NodeVisitor visitor) {}
 
   @Override
-  public MultiExpression addVariableWithOperator(Operator operator, Variable variable) {
-    return new Expression(this, operator, variable);
+  public Expression addVariableWithOperator(Operator operator, Variable variable) {
+    return new Operation(this, operator, variable);
   }
 
   public String toString() {

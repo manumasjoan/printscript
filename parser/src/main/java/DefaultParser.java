@@ -6,18 +6,18 @@ import org.austral.ingsis.printscript.parser.Content;
 import org.austral.ingsis.printscript.parser.TokenIterator;
 import org.jetbrains.annotations.NotNull;
 
-public class MainParser extends TokenConsumer implements Parser<Node> {
+public class DefaultParser extends TokenConsumer implements Parser<Node> {
 
   private final PrintlnParser printLnParser = new PrintlnParser(getStream());
   private final AssignmentParser assignmentParser = new AssignmentParser(getStream());
   private final DeclarationParser declarationParser = new DeclarationParser(getStream());
 
-  public MainParser(@NotNull TokenIterator stream) {
+  public DefaultParser(@NotNull TokenIterator stream) {
     super(stream);
   }
 
   @Override
-  public Node createNode() throws Exception {
+  public NodeGroupResult createNode() throws Exception {
     NodeGroupResult nodeGroup = new NodeGroupResult();
 
     Content<String> followingToken;

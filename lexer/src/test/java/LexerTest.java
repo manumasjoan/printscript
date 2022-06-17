@@ -8,7 +8,8 @@ import org.junit.jupiter.api.Test;
 
 public class LexerTest {
 
-  private Lexer lexer = new DefaultLexer();
+  private final LexerBuilder builder = new LexerBuilder();
+  private final Lexer lexer = builder.buildLexer1();
 
   @Test
   public void Test001_GivenInputWithLetAndPrintlnShouldReturnKeywordTokens() {
@@ -17,9 +18,9 @@ public class LexerTest {
 
     List<Token> expected =
         List.of(
-            new Token(DefaultTokenTypes.KEYWORD, 0, 2, new LexicalRange(0, 0, 2, 0)),
-            new Token(DefaultTokenTypes.KEYWORD, 5, 11, new LexicalRange(0, 1, 6, 1)),
-            new Token(DefaultTokenTypes.KEYWORD, 13, 15, new LexicalRange(8, 1, 10, 1)));
+            new Token(DefaultTokenTypes.KEYWORD, 0, 3, new LexicalRange(0, 0, 3, 0)),
+            new Token(DefaultTokenTypes.KEYWORD, 5, 12, new LexicalRange(0, 1, 7, 1)),
+            new Token(DefaultTokenTypes.KEYWORD, 13, 16, new LexicalRange(8, 1, 11, 1)));
 
     assertEquals(expected.size(), actual.size());
     assertTrue(actual.containsAll(expected));
@@ -31,10 +32,10 @@ public class LexerTest {
 
     List<Token> expected =
         List.of(
-            new Token(DefaultTokenTypes.OPERATOR, 0, 0, new LexicalRange(0, 0, 0, 0)),
-            new Token(DefaultTokenTypes.OPERATOR, 2, 2, new LexicalRange(2, 0, 2, 0)),
-            new Token(DefaultTokenTypes.OPERATOR, 4, 4, new LexicalRange(4, 0, 4, 0)),
-            new Token(DefaultTokenTypes.OPERATOR, 6, 6, new LexicalRange(6, 0, 6, 0)));
+            new Token(DefaultTokenTypes.OPERATOR, 0, 1, new LexicalRange(0, 0, 1, 0)),
+            new Token(DefaultTokenTypes.OPERATOR, 2, 3, new LexicalRange(2, 0, 3, 0)),
+            new Token(DefaultTokenTypes.OPERATOR, 4, 5, new LexicalRange(4, 0, 5, 0)),
+            new Token(DefaultTokenTypes.OPERATOR, 6, 7, new LexicalRange(6, 0, 7, 0)));
 
     assertEquals(expected.size(), actual.size());
     assertTrue(actual.containsAll(expected));
@@ -46,8 +47,8 @@ public class LexerTest {
 
     List<Token> expected =
         List.of(
-            new Token(DefaultTokenTypes.LITERAL, 0, 16, new LexicalRange(0, 0, 16, 0)),
-            new Token(DefaultTokenTypes.LITERAL, 19, 24, new LexicalRange(1, 1, 6, 1)));
+            new Token(DefaultTokenTypes.LITERAL, 0, 17, new LexicalRange(0, 0, 17, 0)),
+            new Token(DefaultTokenTypes.LITERAL, 19, 25, new LexicalRange(1, 1, 7, 1)));
 
     assertEquals(expected.size(), actual.size());
     assertTrue(actual.containsAll(expected));
@@ -59,8 +60,8 @@ public class LexerTest {
 
     List<Token> expected =
         List.of(
-            new Token(DefaultTokenTypes.LITERAL, 0, 2, new LexicalRange(0, 0, 2, 0)),
-            new Token(DefaultTokenTypes.LITERAL, 4, 7, new LexicalRange(4, 0, 7, 0)));
+            new Token(DefaultTokenTypes.LITERAL, 0, 3, new LexicalRange(0, 0, 3, 0)),
+            new Token(DefaultTokenTypes.LITERAL, 4, 8, new LexicalRange(4, 0, 8, 0)));
 
     assertEquals(expected.size(), actual.size());
     assertTrue(actual.containsAll(expected));
@@ -72,13 +73,13 @@ public class LexerTest {
 
     List<Token> expected =
         List.of(
-            new Token(DefaultTokenTypes.KEYWORD, 0, 2, new LexicalRange(0, 0, 2, 0)),
-            new Token(DefaultTokenTypes.IDENTIFIER, 4, 4, new LexicalRange(4, 0, 4, 0)),
-            new Token(DefaultTokenTypes.SEPARATOR, 6, 6, new LexicalRange(6, 0, 6, 0)),
-            new Token(DefaultTokenTypes.IDENTIFIER, 8, 13, new LexicalRange(8, 0, 13, 0)),
-            new Token(DefaultTokenTypes.ASSIGN, 15, 15, new LexicalRange(15, 0, 15, 0)),
-            new Token(DefaultTokenTypes.LITERAL, 17, 17, new LexicalRange(17, 0, 17, 0)),
-            new Token(DefaultTokenTypes.SEPARATOR, 18, 18, new LexicalRange(18, 0, 18, 0)));
+            new Token(DefaultTokenTypes.KEYWORD, 0, 3, new LexicalRange(0, 0, 3, 0)),
+            new Token(DefaultTokenTypes.IDENTIFIER, 4, 5, new LexicalRange(4, 0, 5, 0)),
+            new Token(DefaultTokenTypes.SEPARATOR, 6, 7, new LexicalRange(6, 0, 7, 0)),
+            new Token(DefaultTokenTypes.IDENTIFIER, 8, 14, new LexicalRange(8, 0, 14, 0)),
+            new Token(DefaultTokenTypes.ASSIGN, 15, 16, new LexicalRange(15, 0, 16, 0)),
+            new Token(DefaultTokenTypes.LITERAL, 17, 18, new LexicalRange(17, 0, 18, 0)),
+            new Token(DefaultTokenTypes.SEPARATOR, 18, 19, new LexicalRange(18, 0, 19, 0)));
 
     assertEquals(expected.size(), actual.size());
     assertTrue(actual.containsAll(expected));
@@ -90,9 +91,9 @@ public class LexerTest {
 
     List<Token> expected =
         List.of(
-            new Token(DefaultTokenTypes.KEYWORD, 0, 2, new LexicalRange(0, 0, 2, 0)),
-            new Token(DefaultTokenTypes.LITERAL, 4, 8, new LexicalRange(4, 0, 8, 0)),
-            new Token(DefaultTokenTypes.KEYWORD, 10, 16, new LexicalRange(10, 0, 16, 0)));
+            new Token(DefaultTokenTypes.KEYWORD, 0, 3, new LexicalRange(0, 0, 3, 0)),
+            new Token(DefaultTokenTypes.LITERAL, 4, 9, new LexicalRange(4, 0, 9, 0)),
+            new Token(DefaultTokenTypes.KEYWORD, 10, 17, new LexicalRange(10, 0, 17, 0)));
 
     assertEquals(expected.size(), actual.size());
     assertTrue(actual.containsAll(expected));
@@ -104,9 +105,9 @@ public class LexerTest {
 
     List<Token> expected =
         List.of(
-            new Token(DefaultTokenTypes.LITERAL, 0, 1, new LexicalRange(0, 0, 1, 0)),
-            new Token(DefaultTokenTypes.IDENTIFIER, 3, 6, new LexicalRange(3, 0, 6, 0)),
-            new Token(DefaultTokenTypes.LITERAL, 8, 8, new LexicalRange(8, 0, 8, 0)));
+            new Token(DefaultTokenTypes.LITERAL, 0, 2, new LexicalRange(0, 0, 2, 0)),
+            new Token(DefaultTokenTypes.IDENTIFIER, 3, 7, new LexicalRange(3, 0, 7, 0)),
+            new Token(DefaultTokenTypes.LITERAL, 8, 9, new LexicalRange(8, 0, 9, 0)));
 
     assertEquals(expected.size(), actual.size());
     assertTrue(actual.containsAll(expected));

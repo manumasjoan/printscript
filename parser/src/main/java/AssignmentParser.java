@@ -1,12 +1,12 @@
 import ast.node.Assignation;
-import ast.node.MultiExpression;
+import ast.node.Expression;
 import org.austral.ingsis.printscript.common.TokenConsumer;
 import org.austral.ingsis.printscript.parser.TokenIterator;
 import org.jetbrains.annotations.NotNull;
 
 public class AssignmentParser extends TokenConsumer implements Parser<Assignation> {
 
-  private final MultiExpressionParser expressionParser = new MultiExpressionParser(getStream());
+  private final ExpressionParser expressionParser = new ExpressionParser(getStream());
 
   public AssignmentParser(@NotNull TokenIterator stream) {
     super(stream);
@@ -16,8 +16,8 @@ public class AssignmentParser extends TokenConsumer implements Parser<Assignatio
   public Assignation createNode() throws Exception {
     String variable = getVariable();
     lookForAssignation();
-    MultiExpression multiExpression = expressionParser.createNode();
-    return new Assignation(variable, multiExpression);
+    Expression expression = expressionParser.createNode();
+    return new Assignation(variable, expression);
   }
 
   private void lookForAssignation() throws Exception {
