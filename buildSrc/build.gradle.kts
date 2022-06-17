@@ -16,8 +16,8 @@ repositories {
     maven {
         url = uri("https://maven.pkg.github.com/austral-ingsis/printscript-parser-common")
         credentials {
-            username = "tefiporacchia"
-            password = "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"
+            username = project.findProperty("user") as String?
+                password = project.findProperty("token") as String?
         }
     }
 }
