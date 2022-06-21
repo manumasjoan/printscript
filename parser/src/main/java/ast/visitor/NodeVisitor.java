@@ -1,9 +1,6 @@
 package ast.visitor;
 
-import ast.node.Assignation;
-import ast.node.Declaration;
-import ast.node.NodeGroupResult;
-import ast.node.Println;
+import ast.node.*;
 
 public interface NodeVisitor {
   void visit(NodeGroupResult nodeGroupResult) throws Exception;
@@ -13,4 +10,6 @@ public interface NodeVisitor {
   void visit(Assignation assignation) throws Exception;
 
   void visit(Println printLn) throws Exception;
+
+  void visit(IfStatement expression) throws Exception;
 }

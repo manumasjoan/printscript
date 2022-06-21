@@ -4,9 +4,9 @@ import org.austral.ingsis.printscript.common.TokenConsumer;
 import org.austral.ingsis.printscript.parser.TokenIterator;
 import org.jetbrains.annotations.NotNull;
 
-public class DeclarationParser extends TokenConsumer implements Parser<Declaration> {
+public abstract class DeclarationParser extends TokenConsumer implements Parser<Declaration> {
 
-  private final ExpressionParser expressionParser = new ExpressionParser(getStream());
+  public ExpressionParser expressionParser = new ExpressionParserV10(getStream());
 
   public DeclarationParser(@NotNull TokenIterator stream) {
     super(stream);
@@ -14,15 +14,17 @@ public class DeclarationParser extends TokenConsumer implements Parser<Declarati
 
   @Override
   public Declaration createNode() throws Exception {
-    consume(DefaultTokenTypes.KEYWORD, "let");
+    boolean canChange = canChange();
     String variable = getVariable();
     lookForSeparator();
     String type = getType();
-    if (separatorFound()) return new Declaration(variable, type);
+    if (separatorFound()) return new Declaration(variable, type, canChange);
     lookForAssignment();
     Expression expression = expressionParser.createNode();
-    return new Declaration(variable, type, expression);
+    return new Declaration(variable, type, expression, canChange);
   }
+
+  public abstract boolean canChange();
 
   private void lookForAssignment() throws Exception {
     if (noAssignmentFound()) throw new Exception("No = found");

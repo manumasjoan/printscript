@@ -2,31 +2,27 @@ package ast.node;
 
 import ast.visitor.ExpressionVisitor;
 import ast.visitor.NodeVisitor;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.ToString;
 
 @Getter
-public class Variable implements Expression {
+@AllArgsConstructor
+@ToString
+public class ReadInput implements Expression {
 
-  private final String varName;
-
-  public Variable(String varName) {
-    this.varName = varName;
-  }
+  String input;
 
   @Override
   public void accept(ExpressionVisitor visitor) throws Exception {
-    visitor.visitVariable(this);
+    visitor.visitReadInput(this);
   }
-
-  @Override
-  public void accept(NodeVisitor visitor) {}
 
   @Override
   public Expression addVariableWithOperator(Operator operator, Expression variable) {
     return new Operation(this, operator, variable);
   }
 
-  public String toString() {
-    return varName;
-  }
+  @Override
+  public void accept(NodeVisitor visitor) throws Exception {}
 }

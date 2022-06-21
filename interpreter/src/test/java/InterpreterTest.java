@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 public class InterpreterTest {
 
-  private final Evaluator evaluator = new Evaluator();
+  private final Evaluator evaluator = new EvaluatorV10();
 
   @Test
   public void test001_GivenTwoStringsWithAddOperandShouldReturnConcatenatedString()
@@ -42,7 +42,7 @@ public class InterpreterTest {
   }
 
   @Test
-  public void test005_GivenTwoNumbersWithDivitionOperatorShouldReturnDividedNumbers()
+  public void test005_GivenTwoNumbersWithDivisionOperatorShouldReturnDividedNumbers()
       throws Exception {
     Operation operation = new Operation(new Variable("8"), Operator.DIV, new Variable("2"));
     operation.accept(evaluator);
@@ -64,7 +64,7 @@ public class InterpreterTest {
     Map<String, String> variables = new HashMap<>();
     variables.put("a", "5");
     variables.put("b", "6");
-    Evaluator visitor = new Evaluator(variables);
+    Evaluator visitor = new EvaluatorV10(variables);
     Operation operation = new Operation(new Variable("a"), Operator.ADD, new Variable("b"));
     operation.accept(visitor);
     assertEquals("11.0", visitor.getOutput());
@@ -74,7 +74,7 @@ public class InterpreterTest {
   public void test007_GivenAnAlreadyAssignedVariableShouldReplaceWithValue() throws Exception {
     Map<String, String> variables = new HashMap<>();
     variables.put("a", "5");
-    Evaluator visitor = new Evaluator(variables);
+    Evaluator visitor = new EvaluatorV10(variables);
     Variable variable = new Variable("a");
     variable.accept(visitor);
     assertEquals("5", visitor.getOutput());
@@ -82,7 +82,7 @@ public class InterpreterTest {
 
   @Test
   public void test008_GivenANodeGroupResultShouldPrintContent() throws Exception {
-    Declaration declaration = new Declaration("a", "String");
+    Declaration declaration = new Declaration("a", "String", true);
     Assignation assignation = new Assignation("a", new Variable("\"Hello\""));
     Println printLn = new Println(new Variable("a"));
     NodeGroupResult nodeGroupResult = new NodeGroupResult();
@@ -90,7 +90,7 @@ public class InterpreterTest {
     nodeGroupResult.addNode(assignation);
     nodeGroupResult.addNode(printLn);
 
-    NodeGroupVisitor visitor = new NodeGroupVisitor();
+    NodeGroupVisitor visitor = new NodeGroupVisitorV10(new EvaluatorV10());
     DefaultInterpreter interpreter = new DefaultInterpreter(visitor);
 
     assertEquals("\"Hello\"", interpreter.interpret(nodeGroupResult).getContent());
@@ -98,7 +98,7 @@ public class InterpreterTest {
 
   @Test
   public void test009_GivenANodeGroupResultShouldPrintContent() throws Exception {
-    Declaration declaration = new Declaration("a", "number");
+    Declaration declaration = new Declaration("a", "number", true);
     Assignation assignation =
         new Assignation("a", new Operation(new Variable("5"), Operator.ADD, new Variable("2")));
     Println printLn = new Println(new Variable("a"));
@@ -107,7 +107,7 @@ public class InterpreterTest {
     nodeGroupResult.addNode(assignation);
     nodeGroupResult.addNode(printLn);
 
-    NodeGroupVisitor visitor = new NodeGroupVisitor();
+    NodeGroupVisitor visitor = new NodeGroupVisitorV10(new EvaluatorV10());
     DefaultInterpreter interpreter = new DefaultInterpreter(visitor);
 
     assertEquals("7.0", interpreter.interpret(nodeGroupResult).getContent());

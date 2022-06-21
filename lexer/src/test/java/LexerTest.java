@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 public class LexerTest {
 
   private final LexerBuilder builder = new LexerBuilder();
-  private final Lexer lexer = builder.buildLexer1();
+  private final Lexer lexer = builder.buildLexer_V10();
 
   @Test
   public void Test001_GivenInputWithLetAndPrintlnShouldReturnKeywordTokens() {

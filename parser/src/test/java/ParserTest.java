@@ -54,7 +54,7 @@ class ParserTest {
   @Test
   public void Test004_multiplication() throws Exception {
     Parser<Expression> parser =
-        new ExpressionParser(
+        new ExpressionParserV10(
             TokenIterator.Companion.create(
                 "60 * 5",
                 List.of(
@@ -67,19 +67,21 @@ class ParserTest {
 
   @Test
   public void Test005_incorrectTokenTest() {
-    Parser<Node> parser =
-        new DefaultParser(
-            TokenIterator.Companion.create(
-                "let",
-                List.of(
-                    new Token(DefaultTokenTypes.SEPARATOR, 0, 3, new LexicalRange(0, 0, 3, 0)))));
+    DefaultParser parser =
+        new ParserBuilder()
+            .buildParser_V10(
+                TokenIterator.Companion.create(
+                    "let",
+                    List.of(
+                        new Token(
+                            DefaultTokenTypes.SEPARATOR, 0, 3, new LexicalRange(0, 0, 3, 0)))));
     assertThrows(Exception.class, parser::createNode);
   }
 
   @Test
   public void Test006_correctInitialization() throws Exception {
     Parser<Declaration> parser =
-        new DeclarationParser(
+        new DeclarationParserV10(
             TokenIterator.Companion.create(
                 "let var:string;",
                 List.of(
@@ -89,7 +91,7 @@ class ParserTest {
                     new Token(DefaultTokenTypes.IDENTIFIER, 8, 14, new LexicalRange(8, 0, 14, 0)),
                     new Token(
                         DefaultTokenTypes.SEPARATOR, 14, 15, new LexicalRange(14, 0, 15, 0)))));
-    Declaration declaration = new Declaration("var", "string");
+    Declaration declaration = new Declaration("var", "string", false);
     assertEquals(parser.createNode().toString(), declaration.toString());
   }
 }

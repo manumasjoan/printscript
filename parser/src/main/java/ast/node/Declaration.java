@@ -8,16 +8,19 @@ public class Declaration implements Node {
   private final String varName;
   private final String type;
   private Expression val;
+  private final boolean canChange;
 
-  public Declaration(String varName, String type, Expression val) {
+  public Declaration(String varName, String type, Expression val, boolean canChange) {
     this.varName = varName;
     this.type = type;
     this.val = val;
+    this.canChange = canChange;
   }
 
-  public Declaration(String varName, String type) {
+  public Declaration(String varName, String type, boolean canChange) {
     this.varName = varName;
     this.type = type;
+    this.canChange = canChange;
   }
 
   @Override

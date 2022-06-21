@@ -205,13 +205,13 @@
 
         <module name="MissingSwitchDefault"/>
 
-        <!-- Checks that Class variables should never be declared public. -->
+        <!-- Checks that Class variables should never be declared public.
         <module name="VisibilityModifier">
             <property name="protectedAllowed" value="true"/>
             <property name="allowPublicFinalFields" value="true"/>
             <property name="ignoreAnnotationCanonicalNames" value="RegisterExtension, TempDir"/>
         </module>
-
+        -->
         <!--
         ORDER CHECKS
         -->
@@ -226,9 +226,9 @@
           2. Instance variables. Order: public, protected, package level (no access modifier), private.
           3. Constructors
           4. Methods
-        -->
-        <module name ="DeclarationOrder"/>
 
+        <module name ="DeclarationOrder"/>
+        -->
         <module name="ModifierOrder">
             <!-- Warn if modifier order is inconsistent with JLS3 8.1.1, 8.3.1, and
                  8.4.3.  The prescribed order is:
@@ -237,9 +237,9 @@
               -->
         </module>
 
-        <module name="OverloadMethodsDeclarationOrder"/>
+        <!--<module name="OverloadMethodsDeclarationOrder"/>
 
-        <!--
+
         WHITESPACE CHECKS
         -->
 

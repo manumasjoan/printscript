@@ -1,18 +1,16 @@
-import ast.node.Assignation;
-import ast.node.Declaration;
-import ast.node.Expression;
-import ast.node.Node;
-import ast.node.NodeGroupResult;
-import ast.node.Println;
+import ast.node.*;
 import ast.visitor.NodeVisitor;
 import lombok.Getter;
 
 @Getter
-public class NodeGroupVisitor implements NodeVisitor {
+public abstract class NodeGroupVisitor implements NodeVisitor {
 
+  public Evaluator evaluator;
   private PrintlnResult printLnResult = new PrintlnResult();
 
-  private Evaluator evaluator = new Evaluator();
+  public NodeGroupVisitor(Evaluator evaluator) {
+    this.evaluator = evaluator;
+  }
 
   @Override
   public void visit(NodeGroupResult nodeGroupResult) throws Exception {
@@ -22,19 +20,7 @@ public class NodeGroupVisitor implements NodeVisitor {
   }
 
   @Override
-  public void visit(Declaration declaration) throws Exception {
-    String type = declaration.getType();
-    String name = declaration.getVarName();
-    Expression expression = declaration.getVal();
-
-    evaluator.declareVariable(name);
-
-    if (expression != null) {
-      assignValue(type, name, expression);
-    }
-
-    evaluator.addVariableWithType(name, type);
-  }
+  public abstract void visit(Declaration declaration) throws Exception;
 
   @Override
   public void visit(Assignation assignation) throws Exception {
@@ -55,11 +41,14 @@ public class NodeGroupVisitor implements NodeVisitor {
     this.printLnResult.addContent(output);
   }
 
-  private boolean variableHasDefinedType(String name) {
+  @Override
+  public void visit(IfStatement expression) throws Exception {}
+
+  public boolean variableHasDefinedType(String name) {
     return evaluator.getVariableType(name) != null;
   }
 
-  private void assignValue(String type, String name, Expression expression) throws Exception {
+  public void assignValue(String type, String name, Expression expression) throws Exception {
     expression.accept(evaluator);
     if (!evaluator.validateType(type)) {
       throw new IllegalArgumentException("Not valid type");

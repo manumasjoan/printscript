@@ -5,10 +5,11 @@ import org.austral.ingsis.printscript.parser.TokenIterator;
 import org.jetbrains.annotations.NotNull;
 
 public class PrintlnParser extends TokenConsumer implements Parser<Println> {
-  private final ExpressionParser expressionParser = new ExpressionParser(getStream());
+  private final ExpressionParser expressionParser;
 
-  public PrintlnParser(@NotNull TokenIterator stream) {
+  public PrintlnParser(@NotNull TokenIterator stream, ExpressionParser expressionParser) {
     super(stream);
+    this.expressionParser = expressionParser;
   }
 
   @Override
