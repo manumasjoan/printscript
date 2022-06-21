@@ -30,14 +30,6 @@ public class EvaluatorV11 extends Evaluator {
       return;
     }
 
-    //todo: aca esta el problema
-    System.out.println("variables with value: "+ variablesWithValue);
-    System.out.println("variables with type: "+ variableWithTypes);
-    System.out.println("variables with can change: "+ variableWithCanChange);
-
-    System.out.println("name: "+ name);
-    System.out.println("puede cambiar?: "+ variableWithCanChange.get(name));
-
     if (variablesWithValue.containsKey(name) && variableWithCanChange.get(name)) {
       variablesWithValue.put(name, output);
     } else {
