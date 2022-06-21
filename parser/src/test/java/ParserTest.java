@@ -1,11 +1,13 @@
 import static org.junit.jupiter.api.Assertions.*;
 
-import ast.node.*;
 import java.util.List;
+import lexer.DefaultTokenTypes;
 import org.austral.ingsis.printscript.common.LexicalRange;
 import org.austral.ingsis.printscript.common.Token;
 import org.austral.ingsis.printscript.parser.TokenIterator;
 import org.junit.jupiter.api.Test;
+import parser.*;
+import parser.ast.node.*;
 
 class ParserTest {
 

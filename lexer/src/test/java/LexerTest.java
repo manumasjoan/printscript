@@ -2,6 +2,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
+import lexer.DefaultTokenTypes;
+import lexer.Lexer;
+import lexer.LexerBuilder;
 import org.austral.ingsis.printscript.common.LexicalRange;
 import org.austral.ingsis.printscript.common.Token;
 import org.junit.jupiter.api.Test;
