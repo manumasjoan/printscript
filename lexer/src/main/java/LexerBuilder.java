@@ -2,7 +2,7 @@ import java.util.List;
 
 public class LexerBuilder {
 
-  public Lexer buildLexer1() {
+  public Lexer buildLexer_V10() {
     AssignationTokenGenerator assignationTokenGenerator =
         new AssignationTokenGenerator(List.of("="));
     KeywordTokenGenerator keywordTokenGenerator =
@@ -32,7 +32,7 @@ public class LexerBuilder {
     return new DefaultLexer(tokenGenerators);
   }
 
-  public Lexer buildLexer2() {
+  public Lexer buildLexer_V11() {
     AssignationTokenGenerator assignationTokenGenerator =
         new AssignationTokenGenerator(List.of("="));
     KeywordTokenGenerator keywordTokenGenerator =

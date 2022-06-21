@@ -27,34 +27,57 @@ public class App {
 
       mode = askForInput("Enter mode: ");
 
-      execute(content, mode);
+      run(content, mode);
     }
   }
 
-  private static void execute(String content, String mode) throws Exception {
+  private static void run(String content, String mode) throws Exception {
+    String version = "";
+    version = askForInput("Enter version: ");
+
     switch (mode) {
-      case "validate" -> validate(content);
-      case "execute" -> execute(content);
+      case "validate" -> validate(content, version);
+      case "execute" -> execute(content, version);
       case "exit" -> System.exit(0);
       default -> System.out.println("Error: Invalid mode");
     }
   }
 
-  private static void execute(String content) throws Exception {
-    PrintlnResult printlnResult = compile(content);
+  private static void execute(String content, String version) throws Exception {
+    PrintlnResult printlnResult = compile(content, version);
     System.out.println(printlnResult.getContent());
   }
 
-  private static PrintlnResult compile(String content) throws Exception {
+  private static PrintlnResult compile(String content, String version) throws Exception {
+
     LexerBuilder lexerBuilder = new LexerBuilder();
-    Lexer lexer = lexerBuilder.buildLexer1();
-    List<Token> tokens = lexer.getTokens(content);
+    ParserBuilder parserBuilder = new ParserBuilder();
+    InterpreterBuilder interpreterBuilder = new InterpreterBuilder();
 
-    DefaultParser parser = new DefaultParser(TokenIterator.Companion.create(content, tokens));
-    NodeGroupResult node = parser.createNode();
-
-    DefaultInterpreter interpreter = new DefaultInterpreter(new NodeGroupVisitor());
-    return interpreter.interpret(node);
+    switch (version) {
+      case "1.0" -> {
+        Lexer lexer = lexerBuilder.buildLexer_V10();
+        List<Token> tokens = lexer.getTokens(content);
+        DefaultParser parser =
+            parserBuilder.buildParser_V10(TokenIterator.Companion.create(content, tokens));
+        NodeGroupResult node = parser.createNode();
+        Interpreter interpreter = interpreterBuilder.buildInterpreter_V10();
+        return interpreter.interpret(node);
+      }
+      case "1.1" -> {
+        Lexer lexer = lexerBuilder.buildLexer_V11();
+        List<Token> tokens = lexer.getTokens(content);
+        DefaultParser parser =
+            parserBuilder.buildParser_V11(TokenIterator.Companion.create(content, tokens));
+        NodeGroupResult node = parser.createNode();
+        Interpreter interpreter = interpreterBuilder.buildInterpreter_V11();
+        return interpreter.interpret(node);
+      }
+      default -> {
+        System.out.println("Invalid version");
+        return null;
+      }
+    }
   }
 
   private static String askForInput(String message) {
@@ -63,9 +86,9 @@ public class App {
     return scanner.nextLine();
   }
 
-  private static void validate(String content) {
+  private static void validate(String content, String version) {
     try {
-      compile(content);
+      compile(content, version);
       System.out.println("Valid");
     } catch (Exception e) {
       System.out.println("Error: " + e.getMessage());

@@ -6,10 +6,16 @@ import org.jetbrains.annotations.NotNull;
 
 public class AssignmentParser extends TokenConsumer implements Parser<Assignation> {
 
-  private final ExpressionParser expressionParser = new ExpressionParser(getStream());
+  private final ExpressionParser expressionParser;
 
-  public AssignmentParser(@NotNull TokenIterator stream) {
+  public AssignmentParser(@NotNull TokenIterator stream, ExpressionParser expressionParser) {
     super(stream);
+    this.expressionParser = expressionParser;
+  }
+
+  public AssignmentParser(TokenIterator stream) {
+    super(stream);
+    this.expressionParser = new ExpressionParserV10(stream);
   }
 
   @Override

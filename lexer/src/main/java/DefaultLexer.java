@@ -19,14 +19,18 @@ public class DefaultLexer implements Lexer {
     LexicalRangeState lexicalRangeState = new LexicalRangeState();
 
     while (lexicalRangeState.getIndex() <= input.length() - 1) {
-      for (TokenGenerator tokenGenerator : tokenGenerators) {
-        TokenGeneratorResult tokenGeneratorResult = tokenGenerator.read(lexicalRangeState, input);
+      for (int i = 0; i < tokenGenerators.size(); i++) {
+        TokenGeneratorResult tokenGeneratorResult =
+            tokenGenerators.get(i).read(lexicalRangeState, input);
         if (tokenGeneratorResult.tokenWasGenerated()) {
           if (isNotSkipLineOrSpace(tokenGeneratorResult)) {
             tokens.add(tokenGeneratorResult.getToken());
           }
           lexicalRangeState = tokenGeneratorResult.getLexicalRangeState();
           break;
+        } else if (!tokenGeneratorResult.tokenWasGenerated() && i == tokenGenerators.size() - 1) {
+          throw new IllegalArgumentException(
+              "Invalid character: " + input.charAt(lexicalRangeState.getIndex()));
         }
       }
     }

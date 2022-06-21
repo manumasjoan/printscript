@@ -1,7 +1,4 @@
-import ast.node.Expression;
-import ast.node.Operation;
-import ast.node.Operator;
-import ast.node.Variable;
+import ast.node.*;
 import ast.visitor.ExpressionVisitor;
 import java.util.HashMap;
 import java.util.Map;
@@ -9,16 +6,20 @@ import java.util.Objects;
 import lombok.Getter;
 
 @Getter
-public class Evaluator implements ExpressionVisitor {
+public abstract class Evaluator implements ExpressionVisitor {
 
-  private String output;
-  private Map<String, String> variablesWithValue;
-  private Map<String, String> variableWithTypes;
+  String output;
+  Map<String, String> variablesWithValue;
+  Map<String, String> variableWithTypes;
+  PrintEmitter printEmitter;
+  InputProvider inputProvider;
 
-  public Evaluator() {
+  public Evaluator(PrintEmitter printEmitter, InputProvider inputProvider) {
     variablesWithValue = new HashMap<>();
     variableWithTypes = new HashMap<>();
     output = "";
+    this.printEmitter = printEmitter;
+    this.inputProvider = inputProvider;
   }
 
   public Evaluator(Map<String, String> variablesWithValue) {
@@ -48,6 +49,9 @@ public class Evaluator implements ExpressionVisitor {
     }
   }
 
+  @Override
+  public void visitReadInput(ReadInput readInput) throws Exception {}
+
   private boolean variableHasAssignedValue(Variable variable) {
     return variablesWithValue.containsKey(variable.getVarName());
   }
@@ -61,9 +65,7 @@ public class Evaluator implements ExpressionVisitor {
     variablesWithValue.put(name, null);
   }
 
-  public void assignVariable(String name) {
-    variablesWithValue.put(name, output);
-  }
+  public abstract void assignVariable(String name) throws Exception;
 
   public void addVariableWithType(String name, String type) {
     variableWithTypes.put(name, type);
@@ -82,30 +84,30 @@ public class Evaluator implements ExpressionVisitor {
     return false;
   }
 
-  private boolean isNumericOperation(String leftOperand, String rightOperand) {
+  public boolean isNumericOperation(String leftOperand, String rightOperand) {
     return isNumber(leftOperand) && isNumber(rightOperand);
   }
 
-  private boolean isConcatenation(String leftOperand, String rightOperand, Operator operator) {
+  public boolean isConcatenation(String leftOperand, String rightOperand, Operator operator) {
     return (operator == Operator.ADD)
         && (isString(leftOperand) && isString(rightOperand)
             || isString(leftOperand) && isNumber(rightOperand)
             || isNumber(leftOperand) && isString(rightOperand));
   }
 
-  private boolean isString(String string) {
+  public boolean isString(String string) {
     return string.matches("\"[\\s\\S][^\"]*\"|'[\\s\\S][^']*'");
   }
 
-  private boolean isNumber(String string) {
+  public boolean isNumber(String string) {
     return string.matches("-?[0-9]{1,9}(\\.[0-9]*)?");
   }
 
-  private void concatenate(String left, String right) {
+  public void concatenate(String left, String right) {
     output = "\"" + (left + right).replaceAll("[\"']", "") + "\"";
   }
 
-  private void numericOperation(String leftOperand, String rightOperand, Operator operator) {
+  public void numericOperation(String leftOperand, String rightOperand, Operator operator) {
     Double leftValue = Double.parseDouble(leftOperand);
     Double rightValue = Double.parseDouble(rightOperand);
 
@@ -118,4 +120,6 @@ public class Evaluator implements ExpressionVisitor {
           default -> "";
         };
   }
+
+  public void declareCanChange(String name, boolean canChange) {}
 }

@@ -25,7 +25,7 @@ public class Operation implements Expression {
     visitor.visitOperation(this);
   }
 
-  public Expression addVariableWithOperator(Operator operator, Variable variable) {
+  public Expression addVariableWithOperator(Operator operator, Expression variable) {
     if (operator == Operator.SUB || operator == Operator.ADD) {
       return new Operation(this, operator, variable);
     } else {
