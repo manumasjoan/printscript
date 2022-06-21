@@ -1,8 +1,15 @@
-import ast.node.NodeGroupResult;
+import interpreter.Interpreter;
+import interpreter.InterpreterBuilder;
+import interpreter.PrintlnResult;
 import java.util.List;
 import java.util.Scanner;
+import lexer.Lexer;
+import lexer.LexerBuilder;
 import org.austral.ingsis.printscript.common.Token;
 import org.austral.ingsis.printscript.parser.TokenIterator;
+import parser.DefaultParser;
+import parser.ParserBuilder;
+import parser.ast.node.NodeGroupResult;
 
 public class App {
 

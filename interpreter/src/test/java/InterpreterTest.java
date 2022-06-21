@@ -1,9 +1,10 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import ast.node.*;
+import interpreter.*;
 import java.util.HashMap;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
+import parser.ast.node.*;
 
 public class InterpreterTest {
 
