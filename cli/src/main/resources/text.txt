@@ -1,3 +1,4 @@
-let a : String;
-a = readInput("Enter a word: ");
-println("The word is: " + a);
+let a: number = 234;
+let b : String = "hola";
+let c : String = a+b;
+println(a+b);
