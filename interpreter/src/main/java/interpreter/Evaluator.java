@@ -123,5 +123,7 @@ public abstract class Evaluator implements ExpressionVisitor {
         };
   }
 
-  public void declareCanChange(String name, boolean canChange) {}
+  public void declareCanChange(String name, boolean canChange) {
+
+  }
 }

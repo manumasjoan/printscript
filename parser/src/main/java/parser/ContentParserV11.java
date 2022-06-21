@@ -27,16 +27,19 @@ public class ContentParserV11 extends ContentParser {
     followingToken = peek(DefaultTokenTypes.KEYWORD);
     if (followingToken == null) {
       output = assignmentParser.createNode();
+      checkEndsWithSemicolon();
     } else {
       if (isLet(followingToken) || isConst(followingToken)) {
         output = declarationParser.createNode();
+        checkEndsWithSemicolon();
       } else if (isPrintln(followingToken)) {
         output = printLnParser.createNode();
+        checkEndsWithSemicolon();
       } else if (isIf(followingToken)) {
         output = ifParser.createNode();
       } else throw new Exception("Unexpected keyword: " + followingToken.getContent());
     }
-    checkEndsWithSemicolon();
+    //checkEndsWithSemicolon();
     return output;
   }
 }

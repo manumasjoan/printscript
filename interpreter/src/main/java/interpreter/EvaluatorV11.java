@@ -21,7 +21,7 @@ public class EvaluatorV11 extends Evaluator {
 
   @Override
   public void declareCanChange(String name, boolean canChange) {
-    super.declareCanChange(name, canChange);
+    variableWithCanChange.put(name, canChange);
   }
 
   public void assignVariable(String name) throws Exception {
@@ -29,7 +29,8 @@ public class EvaluatorV11 extends Evaluator {
       variablesWithValue.put(name, output);
       return;
     }
-    if (variableWithCanChange.containsKey(name) && variableWithCanChange.get(name)) {
+
+    if (variablesWithValue.containsKey(name) && variableWithCanChange.get(name)) {
       variablesWithValue.put(name, output);
     } else {
       throw new Exception("variable can't be changed");
