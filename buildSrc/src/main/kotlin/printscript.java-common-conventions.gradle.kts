@@ -12,6 +12,8 @@ plugins {
 
     jacoco
 
+    `maven-publish`
+
 }
 
 repositories {
@@ -22,8 +24,8 @@ repositories {
         maven {
             url = uri("https://maven.pkg.github.com/austral-ingsis/printscript-parser-common")
             credentials {
-                username = project.findProperty("user") as String? ?: System.getenv("GITHUB_ACTOR")
-                password = project.findProperty("token") as String? ?: System.getenv("GITHUB_TOKEN")
+                username = /*project.findProperty("user") as String?*/ System.getenv("GITHUB_ACTOR")
+                password = /*project.findProperty("token") as String?*/ System.getenv("GITHUB_TOKEN")
             }
         }
     }
@@ -51,6 +53,26 @@ dependencies {
 
 
 }
+
+publishing {
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/manumasjoan/printscript")
+            credentials {
+                username = System.getenv("GITHUB_ACTOR")
+                password = System.getenv("GITHUB_TOKEN")
+            }
+        }
+    }
+    publications {
+        create<MavenPublication>("mavenJava") {
+            version = "1.0"
+            from(components["java"])
+        }
+    }
+}
+
 
 googleJavaFormat {
     toolVersion = "1.12.0" }
