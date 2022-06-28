@@ -19,6 +19,14 @@ public class EvaluatorV11 extends Evaluator {
     this.variableWithCanChange = new HashMap<>();
   }
 
+  public EvaluatorV11(
+      Map<String, String> variablesWithValue, Map<String, Boolean> variableWithCanChange) {
+    super(variablesWithValue);
+    this.variablesWithValue = variablesWithValue;
+    variableWithTypes = new HashMap<>();
+    this.variableWithCanChange = variableWithCanChange;
+  }
+
   @Override
   public void declareCanChange(String name, boolean canChange) {
     variableWithCanChange.put(name, canChange);
