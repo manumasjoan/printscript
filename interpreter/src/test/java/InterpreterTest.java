@@ -81,7 +81,7 @@ public class InterpreterTest {
     assertEquals("5", visitor.getOutput());
   }
 
-  @Test
+  /*  @Test
   public void test008_GivenANodeGroupResultShouldPrintContent() throws Exception {
     Declaration declaration = new Declaration("a", "String", true);
     Assignation assignation = new Assignation("a", new Variable("\"Hello\""));
@@ -95,7 +95,7 @@ public class InterpreterTest {
     DefaultInterpreter interpreter = new DefaultInterpreter(visitor);
 
     assertEquals("\"Hello\"", interpreter.interpret(nodeGroupResult).getContent());
-  }
+  }*/
 
   @Test
   public void test009_GivenANodeGroupResultShouldPrintContent() throws Exception {

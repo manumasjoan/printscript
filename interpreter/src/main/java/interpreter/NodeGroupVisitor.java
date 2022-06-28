@@ -40,7 +40,7 @@ public abstract class NodeGroupVisitor implements NodeVisitor {
   public void visit(Println printLn) throws Exception {
     printLn.getContent().accept(evaluator);
     String output = evaluator.getOutput();
-    this.printLnResult.addContent(output);
+    this.printLnResult.addContent(output.replaceAll("[\"']", ""));
   }
 
   @Override

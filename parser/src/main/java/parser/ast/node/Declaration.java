@@ -30,7 +30,17 @@ public class Declaration implements Node {
 
   @Override
   public String toString() {
-    if (val != null) return "Dec(" + "varName=" + varName + ", type=" + type + ", val=" + val + ')';
-    else return "Dec(" + "varName=" + varName + ", type=" + type + ')';
+    if (val != null)
+      return "Dec("
+          + "varName="
+          + varName
+          + ", type="
+          + type
+          + ", val="
+          + val
+          + ", canChange="
+          + canChange
+          + ')';
+    else return "Dec(" + "varName=" + varName + ", type=" + type + ", canChange=" + canChange + ')';
   }
 }
