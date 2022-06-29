@@ -48,7 +48,7 @@ public class EvaluatorV11 extends Evaluator {
   @Override
   public void visitReadInput(ReadInput readInput) {
     String inputText = readInput.getInput();
-    printEmitter.print(inputText);
+    printEmitter.print(inputText.replaceAll("\"", ""));
     output = "\"" + inputProvider.input(inputText) + "\"";
   }
 

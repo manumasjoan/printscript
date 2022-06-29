@@ -1,3 +1,2 @@
-let someNumber: number = 1;
-let someString: String = "hello world ";
-println(someString + someNumber);
+const name: String = readInput("Name:");
+println("Hello " + name + "!");
