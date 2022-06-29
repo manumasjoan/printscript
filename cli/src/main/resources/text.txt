@@ -1,4 +1,3 @@
-let a: number = 234;
-let b : String = "hola";
-let c : String = a+b;
-println(a+b);
+let someNumber: number = 1;
+let someString: String = "hello world ";
+println(someString + someNumber);

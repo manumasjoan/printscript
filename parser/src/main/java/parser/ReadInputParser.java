@@ -24,7 +24,7 @@ public class ReadInputParser extends TokenConsumer implements Parser<ReadInput> 
         return new ReadInput(text);
       }
     }
-    throw new Exception("Error in parser.ReadInputParser");
+    throw new Exception("Error in readInput");
   }
 
   public boolean opensParenthesis() throws Exception {

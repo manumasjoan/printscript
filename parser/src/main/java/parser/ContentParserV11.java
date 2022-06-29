@@ -39,7 +39,7 @@ public class ContentParserV11 extends ContentParser {
         output = ifParser.createNode();
       } else throw new Exception("Unexpected keyword: " + followingToken.getContent());
     }
-    //checkEndsWithSemicolon();
+    // checkEndsWithSemicolon();
     return output;
   }
 }

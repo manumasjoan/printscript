@@ -2,7 +2,6 @@ package interpreter;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 import lombok.Getter;
 import parser.ast.node.*;
 import parser.ast.visitor.ExpressionVisitor;
@@ -77,14 +76,7 @@ public abstract class Evaluator implements ExpressionVisitor {
     return variableWithTypes.get(name);
   }
 
-  public boolean validateType(String type) {
-    if (Objects.equals(type, "String")) {
-      return isString(output);
-    } else if (Objects.equals(type, "number")) {
-      return isNumber(output);
-    }
-    return false;
-  }
+  public abstract boolean validateType(String type);
 
   public boolean isNumericOperation(String leftOperand, String rightOperand) {
     return isNumber(leftOperand) && isNumber(rightOperand);
@@ -123,7 +115,5 @@ public abstract class Evaluator implements ExpressionVisitor {
         };
   }
 
-  public void declareCanChange(String name, boolean canChange) {
-
-  }
+  public void declareCanChange(String name, boolean canChange) {}
 }
