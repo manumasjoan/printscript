@@ -41,7 +41,7 @@ public abstract class NodeGroupVisitor implements NodeVisitor {
     printLn.getContent().accept(evaluator);
     String output = evaluator.getOutput();
     this.printLnResult.addContent(output.replaceAll("[\"']", ""));
-    evaluator.getPrintEmitter().print(output);
+    evaluator.getPrintEmitter().print(output.replaceAll("[\"']", ""));
   }
 
   @Override
