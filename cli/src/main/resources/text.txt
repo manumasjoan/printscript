@@ -1,2 +1,5 @@
-const name: String = readInput("Name:");
-println("Hello " + name + "!");
+const value: boolean = true;
+if(value) {
+    println("print if true");
+}
+println("print always");

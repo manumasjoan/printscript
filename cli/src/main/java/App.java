@@ -52,7 +52,7 @@ public class App {
 
   private static void execute(String content, String version) throws Exception {
     PrintlnResult printlnResult = compile(content, version);
-    System.out.println(printlnResult.getContent());
+    //System.out.println(printlnResult.getContent());
   }
 
   private static PrintlnResult compile(String content, String version) throws Exception {
