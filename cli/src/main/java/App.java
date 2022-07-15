@@ -51,8 +51,7 @@ public class App {
   }
 
   private static void execute(String content, String version) throws Exception {
-    PrintlnResult printlnResult = compile(content, version);
-    //System.out.println(printlnResult.getContent());
+    compile(content, version);
   }
 
   private static PrintlnResult compile(String content, String version) throws Exception {
