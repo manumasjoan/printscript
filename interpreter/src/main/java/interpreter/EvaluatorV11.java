@@ -41,7 +41,7 @@ public class EvaluatorV11 extends Evaluator {
     if (variablesWithValue.containsKey(name) && variableWithCanChange.get(name)) {
       variablesWithValue.put(name, output);
     } else {
-      throw new Exception("variable can't be changed");
+      throw new Exception("Variable can't be changed");
     }
   }
 
@@ -53,7 +53,7 @@ public class EvaluatorV11 extends Evaluator {
   }
 
   public boolean validateType(String type) {
-    if (Objects.equals(type, "String")) {
+    if (Objects.equals(type, "string")) {
       return isString(output);
     } else if (Objects.equals(type, "number")) {
       return isNumber(output);

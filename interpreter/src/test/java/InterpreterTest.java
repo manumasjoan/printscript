@@ -85,7 +85,7 @@ public class InterpreterTest {
 
   @Test
   public void test008_GivenANodeGroupResultShouldPrintContent() throws Exception {
-    Declaration declaration = new Declaration("a", "String", true);
+    Declaration declaration = new Declaration("a", "string", true);
     Assignation assignation = new Assignation("a", new Variable("\"Hello\""));
     Println printLn = new Println(new Variable("a"));
     NodeGroupResult nodeGroupResult = new NodeGroupResult();
@@ -195,7 +195,7 @@ public class InterpreterTest {
 
   @Test
   public void test008_GivenANodeGroupResultShouldPrintContentV11() throws Exception {
-    Declaration declaration = new Declaration("a", "String", true);
+    Declaration declaration = new Declaration("a", "string", true);
     Assignation assignation = new Assignation("a", new Variable("\"Hello\""));
     Println printLn = new Println(new Variable("a"));
     NodeGroupResult nodeGroupResult = new NodeGroupResult();
