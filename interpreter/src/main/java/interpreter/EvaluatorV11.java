@@ -41,7 +41,7 @@ public class EvaluatorV11 extends Evaluator {
     if (variablesWithValue.containsKey(name) && variableWithCanChange.get(name)) {
       variablesWithValue.put(name, output);
     } else {
-      throw new Exception("variable can't be changed");
+      throw new Exception("Variable can't be changed");
     }
   }
 
