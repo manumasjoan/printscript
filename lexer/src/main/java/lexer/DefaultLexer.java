@@ -31,7 +31,8 @@ public class DefaultLexer implements Lexer {
           lexicalRangeState = tokenGeneratorResult.getLexicalRangeState();
           break;
         } else if (!tokenGeneratorResult.tokenWasGenerated() && i == tokenGenerators.size() - 1) {
-          throw new IllegalArgumentException(
+          throw new
+                  IllegalArgumentException(
               "Invalid character: " + input.charAt(lexicalRangeState.getIndex()));
         }
       }

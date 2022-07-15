@@ -53,7 +53,7 @@ public class EvaluatorV11 extends Evaluator {
   }
 
   public boolean validateType(String type) {
-    if (Objects.equals(type, "String")) {
+    if (Objects.equals(type, "string")) {
       return isString(output);
     } else if (Objects.equals(type, "number")) {
       return isNumber(output);
